@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex" />
+    <title>Administrar el sitio · Templo Expiatorio El Calvario</title>
+    <link rel="icon" href="/logo.png" />
+    <!-- Absolute path, so /admin (no trailing slash) doesn't look for /config.yml. -->
+    <link href="/admin/config.yml" type="text/yaml" rel="cms-config-url" />
+  </head>
+  <body>
+    <!--
+      Admin panel (Decap CMS). What can be edited is defined in `config.yml`,
+      not here. This file only loads the panel.
+
+      It loads from a CDN on purpose: that way the panel stays out of the site's
+      `build` and adds no weight for someone who only comes to read the page.
+    -->
+    <script src="https://unpkg.com/decap-cms@^3.3.3/dist/decap-cms.js"></script>
+
+    <!-- Netlify Identity email invite: opening the link asks for the password. -->
+    <script>
+      window.netlifyIdentity &&
+        window.netlifyIdentity.on("init", function (user) {
+          if (!user) {
+            window.netlifyIdentity.on("login", function () {
+              document.location.href = "/admin/";
+            });
+          }
+        });
+    </script>
+  </body>
+</html>

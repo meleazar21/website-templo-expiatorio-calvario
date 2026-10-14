@@ -1,0 +1,18 @@
+{
+  "orden": 3,
+  "nombre": "Primera Comunión",
+  "icono": "chalice",
+  "descripcion": "Encuentro con Jesús presente en la Eucaristía, fuente y cumbre de la vida cristiana. Se recibe al concluir la catequesis de preparación.",
+  "requisitos": [
+    {
+      "texto": "Edad de 8 a 13 años"
+    },
+    {
+      "texto": "Fe de bautismo del niño(a)"
+    },
+    {
+      "texto": "Haber completado el curso de catequesis"
+    }
+  ],
+  "nota": ""
+}

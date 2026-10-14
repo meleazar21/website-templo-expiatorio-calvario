@@ -1,0 +1,21 @@
+{
+  "orden": 2,
+  "nombre": "Confirmación",
+  "icono": "flame",
+  "descripcion": "Completa la iniciación cristiana y fortalece al creyente con los dones del Espíritu Santo para ser testigo de Cristo.",
+  "requisitos": [
+    {
+      "texto": "Edad mínima de 14 años"
+    },
+    {
+      "texto": "Fe de bautismo del confirmando"
+    },
+    {
+      "texto": "Constancia de Primera Comunión"
+    },
+    {
+      "texto": "Fe de bautismo y fotocopia de cédula del padrino o madrina"
+    }
+  ],
+  "nota": ""
+}

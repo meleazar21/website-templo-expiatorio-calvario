@@ -1,0 +1,45 @@
+# Netlify deployment.
+#
+# Included because the admin panel (/admin) comes configured with `git-gateway`, the
+# login that Netlify ships built in: publishing here, the panel works with nothing
+# else to set up.
+#
+# To use it:
+#   1. Netlify → Add new site → Import from Git → this repository.
+#   2. Site configuration → Identity → Enable Identity.
+#   3. Identity → Registration → Invite only  (so not just anyone can sign up).
+#   4. Identity → Services → Git Gateway → Enable.
+#   5. Identity → Invite users → the email of whoever will maintain the site.
+#
+# The site also works on Vercel (vercel.json), but there the panel needs a separate
+# GitHub OAuth app; see the commented block in public/admin/config.yml.
+
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+# The site is a single page: any route returns index.html. Without `force`, files that
+# really exist (/admin/index.html, /admin/config.yml, the photos) are served as-is and
+# don't go through here.
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+# Security headers. Same values as in vercel.json: keep both in sync.
+#
+# The Content-Security-Policy only lets the browser load what the site really uses:
+# its own files, Google Fonts, and the Google Maps
+# embed (contact). If a new external service is added someday (another video host,
+# analytics...), its domain must be added here or the browser will block it.
+# 'unsafe-inline' in style-src is needed for the inline styles in index.html and the
+# animation delays; scripts stay strict.
+[[headers]]
+  for = "/*"
+  [headers.values]
+    Content-Security-Policy = "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; media-src 'self'; frame-src https://www.google.com https://maps.google.com; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; upgrade-insecure-requests"
+    X-Frame-Options = "DENY"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "camera=(), microphone=(), geolocation=(), payment=(), usb=()"
+    Strict-Transport-Security = "max-age=63072000; includeSubDomains"

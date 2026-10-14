@@ -1,0 +1,12 @@
+{
+  "orden": 6,
+  "nombre": "Matrimonio",
+  "icono": "rings",
+  "descripcion": "Alianza de amor entre un hombre y una mujer bendecida por Dios. Se recomienda acercarse a la parroquia con varios meses de anticipación.",
+  "requisitos": [
+    {
+      "texto": "[CONTENIDO POR DEFINIR]"
+    }
+  ],
+  "nota": ""
+}

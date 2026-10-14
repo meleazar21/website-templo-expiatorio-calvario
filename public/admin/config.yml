@@ -1,0 +1,214 @@
+####################################################################################
+#  Admin panel — Decap CMS
+#
+#  Defines what can be edited. Each "collection" below is a section of the panel.
+#  Field `name`s are the JSON keys in content/; `label`s and `hint`s are what editors
+#  see in the panel, so they stay in Spanish.
+#
+#  USED LOCALLY ONLY: `npm run admin` starts the proxy that writes to content/, and
+#  `npm run dev` serves the panel at http://localhost:5173/admin/. It asks for no
+#  password and doesn't touch GitHub: changes stay in the working tree and are pushed
+#  with a commit. The build DELETES /admin, so the panel never reaches the published site.
+#
+#  The `backend` block below is NOT used in that mode (`local_backend` takes over), but
+#  Decap requires it to exist.
+#
+#  Any text written as [IN UPPERCASE BETWEEN BRACKETS] shows on the page highlighted
+#  in gold, e.g. [CONTENIDO POR DEFINIR] or [PRÓXIMAMENTE].
+####################################################################################
+
+backend:
+  name: git-gateway      # placeholder: locally, `local_backend` takes over
+  branch: master
+
+local_backend: true
+publish_mode: editorial_workflow
+locale: es
+
+# Where photos uploaded from the panel end up.
+media_folder: "public/fotos"
+public_folder: "/fotos"
+
+collections:
+  # ------------------------------------------------------------------ Schedules
+  - name: horarios
+    label: "Horarios"
+    files:
+      - name: horarios
+        label: "Misas, confesiones y dirección espiritual"
+        file: "content/horarios.json"
+        description: "Lo más consultado del sitio. Mantenlo al día."
+        fields:
+          - name: misas
+            label: "Santa Misa"
+            label_singular: "Horario"
+            widget: list
+            summary: "{{fields.dia}} · {{fields.hora}}"
+            fields: &scheduleFields
+              - { name: dia, label: "Día o días", widget: string, hint: "Ej.: Lunes a viernes" }
+              - { name: hora, label: "Hora", widget: string, hint: "Ej.: 6:00 pm  ·  Varias horas: 7:00 am, 10:00 am y 6:00 pm" }
+              - { name: nota, label: "Nota (opcional)", widget: string, required: false, hint: "Ej.: Misa con niños, Previa cita..." }
+          - name: confesiones
+            label: "Confesiones"
+            label_singular: "Horario"
+            widget: list
+            summary: "{{fields.dia}} · {{fields.hora}}"
+            fields: *scheduleFields
+          - name: direccionEspiritual
+            label: "Dirección espiritual"
+            label_singular: "Horario"
+            widget: list
+            summary: "{{fields.dia}} · {{fields.hora}}"
+            fields: *scheduleFields
+
+  # ------------------------------------------------------------------ Announcements
+  - name: avisos
+    label: "Avisos parroquiales"
+    label_singular: "Aviso"
+    folder: "content/avisos"
+    extension: json
+    format: json
+    create: true
+    identifier_field: titulo
+    slug: "{{year}}-{{month}}-{{slug}}"
+    summary: "{{orden}} · {{titulo}}"
+    sortable_fields: [orden, titulo]
+    fields:
+      - { name: orden, label: "Orden en que aparece", widget: number, value_type: int, default: 1 }
+      - { name: titulo, label: "Título", widget: string }
+      - { name: categoria, label: "Categoría", widget: select, options: [AVISOS, LITURGIA, SACRAMENTOS, ACTIVIDADES, FESTIVIDADES] }
+      - { name: fecha, label: "Fecha", widget: string }
+      - { name: descripcion, label: "Descripción", widget: text, hint: "Los saltos de línea se respetan en la página." }
+      - { name: destacado, label: "Destacar", widget: boolean, default: false, hint: "Lo resalta con borde dorado." }
+
+  # ------------------------------------------------------------------ Priests
+  - name: sacerdotes
+    label: "Sacerdotes"
+    label_singular: "Sacerdote"
+    folder: "content/sacerdotes"
+    extension: json
+    format: json
+    create: true
+    identifier_field: nombre
+    slug: "{{slug}}"
+    summary: "{{orden}} · {{cargo}} · {{nombre}}"
+    fields:
+      - { name: orden, label: "Orden en que aparece", widget: number, value_type: int, default: 1 }
+      - { name: nombre, label: "Nombre", widget: string, hint: "Ej.: Pbro. Juan Pérez" }
+      - { name: cargo, label: "Cargo", widget: string, hint: "Ej.: Párroco, Vicario" }
+      - { name: foto, label: "Fotografía", widget: image, required: false, hint: "Vertical, JPG de menos de 300 KB." }
+      - { name: biografia, label: "Biografía", widget: text, hint: "Deja una línea en blanco entre párrafos. La tarjeta muestra el primer párrafo; el resto se ve al tocar 'Conocer más'." }
+
+  # ------------------------------------------------------------------ Groups
+  - name: grupos
+    label: "Grupos parroquiales"
+    label_singular: "Grupo"
+    folder: "content/grupos"
+    extension: json
+    format: json
+    create: true
+    identifier_field: nombre
+    slug: "{{slug}}"
+    summary: "{{nombre}}"
+    sortable_fields: [nombre]
+    fields:
+      - { name: nombre, label: "Nombre del grupo", widget: string }
+      - { name: imagen, label: "Foto o cartel", widget: image, required: false, hint: "Opcional. Se ve entera y al tocarla se abre en grande." }
+      - { name: descripcion, label: "Descripción", widget: text, hint: "Separa los párrafos con una línea en blanco. El primero se ve en la tarjeta; los demás, al tocar «Ver información»." }
+      - { name: encuentros, label: "Encuentros", widget: string, hint: "Cuándo se reúnen. Ej.: Jueves · 7:00 pm" }
+      - { name: enlace, label: "Enlace (opcional)", widget: string, required: false, hint: "Página web o WhatsApp del grupo." }
+      - { name: facebook, label: "Facebook (opcional)", widget: string, required: false, hint: "Enlace a la página de Facebook del grupo." }
+      - { name: instagram, label: "Instagram (opcional)", widget: string, required: false, hint: "Enlace al perfil de Instagram del grupo." }
+
+  # ------------------------------------------------------------------ Sacraments
+  - name: sacramentos
+    label: "Sacramentos"
+    label_singular: "Sacramento"
+    folder: "content/sacramentos"
+    extension: json
+    format: json
+    create: true
+    identifier_field: nombre
+    slug: "{{slug}}"
+    summary: "{{orden}} · {{nombre}}"
+    sortable_fields: [orden, nombre]
+    fields:
+      - { name: orden, label: "Orden en que aparece", widget: number, value_type: int, default: 1 }
+      - { name: nombre, label: "Nombre", widget: string }
+      - name: icono
+        label: "Icono"
+        widget: select
+        options:
+          - { label: "Agua (Bautismo)", value: water }
+          - { label: "Llama (Confirmación)", value: flame }
+          - { label: "Cáliz (Eucaristía)", value: chalice }
+          - { label: "Corazón (Reconciliación)", value: heart }
+          - { label: "Óleo (Unción)", value: oil }
+          - { label: "Anillos (Matrimonio)", value: rings }
+          - { label: "Cruz", value: cross }
+      - { name: descripcion, label: "Descripción", widget: text }
+      - name: requisitos
+        label: "Requisitos"
+        label_singular: "Requisito"
+        widget: list
+        required: false
+        fields: [{ name: texto, label: "Requisito", widget: string }]
+      - { name: nota, label: "Nota importante (opcional)", widget: text, required: false, hint: "Se muestra en un recuadro dorado debajo de los requisitos." }
+
+  # ------------------------------------------------------------------ Gallery
+  - name: galeria
+    label: "Galería"
+    label_singular: "Fotografía"
+    folder: "content/galeria"
+    extension: json
+    format: json
+    create: true
+    identifier_field: titulo
+    slug: "{{slug}}"
+    summary: "{{orden}} · {{titulo}}"
+    sortable_fields: [orden, titulo]
+    fields:
+      - { name: orden, label: "Orden en que aparece", widget: number, value_type: int, default: 1 }
+      - { name: titulo, label: "Título", widget: string }
+      - { name: foto, label: "Fotografía", widget: image, required: false, hint: "JPG de menos de 300 KB y no más de 1600 px de ancho." }
+      - { name: alto, label: "Tamaño en el mosaico", widget: select, options: [corto, medio, alto], default: medio }
+
+  # ------------------------------------------------------------------ Site
+  - name: sitio
+    label: "Configuración del sitio"
+    files:
+      - name: general
+        label: "Portada, textos y contacto"
+        file: "content/site.json"
+        fields:
+          - { name: marca, label: "Nombre completo", widget: string }
+          - { name: marcaLinea1, label: "Nombre — primera línea", widget: string }
+          - { name: marcaLinea2, label: "Nombre — segunda línea", widget: string }
+          - { name: ciudad, label: "Ciudad", widget: string }
+          - { name: lema, label: "Lema (pie de página)", widget: string }
+          - { name: versiculoTexto, label: "Versículo de la portada", widget: string }
+          - { name: versiculoCita, label: "Cita del versículo", widget: string }
+
+          - name: portadaFotos
+            label: "Portada — carrusel de fotos"
+            label_singular: "Foto"
+            widget: list
+            summary: "{{fields.texto}}"
+            hint: "Las fotos van pasando solas cada pocos segundos. Usa fotos horizontales de buena calidad, comprimidas a menos de 400 KB cada una. Entre 3 y 6 es lo ideal."
+            fields:
+              - { name: foto, label: "Fotografía", widget: image }
+              - { name: texto, label: "Descripción breve", widget: string, required: false, hint: "Ej.: Adoración al Santísimo" }
+
+          - { name: comunidadTitulo, label: "Acerca de nuestro templo — título", widget: string }
+          - { name: comunidadTexto, label: "Acerca de nuestro templo — texto", widget: text, hint: "Qué es el Templo Expiatorio. Deja una línea en blanco entre párrafos." }
+          - { name: comunidadFoto, label: "Acerca de nuestro templo — fotografía", widget: image, required: false }
+
+          - { name: telefono, label: "Teléfono", widget: string }
+          - { name: whatsapp, label: "WhatsApp", widget: string, required: false, hint: "Con código de país. Ej.: +505 88887777. También activa el botón verde flotante." }
+          - { name: direccion, label: "Dirección", widget: string }
+          - { name: horarioAtencion, label: "Horario de oficina parroquial", widget: string }
+          - { name: mapaEmbedUrl, label: "Mapa — ubicación del templo", widget: string, required: false, hint: "Busca el templo en Google Maps y copia la dirección de la barra del navegador (la larga, https://www.google.com/maps/place/...). NO uses el enlace corto del botón Compartir." }
+          - { name: facebook, label: "Facebook", widget: string, required: false, hint: "Si se deja vacío no aparece." }
+          - { name: instagram, label: "Instagram", widget: string, required: false, hint: "Si se deja vacío no aparece." }
+          - { name: youtube, label: "YouTube", widget: string, required: false, hint: "Si se deja vacío no aparece." }
+          - { name: tiktok, label: "TikTok", widget: string, required: false, hint: "Si se deja vacío no aparece." }

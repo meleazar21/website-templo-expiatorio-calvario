@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/png" href="/logo.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#7a1f35" />
+
+    <!-- SEO. The title and description carry the searches the site should answer:
+         "templo expiatorio masaya", "parroquia el calvario masaya", "horarios de misa".
+         When the site has its final address, add a <link rel="canonical">, the
+         og:url / og:image absolute URLs, and a Sitemap line in public/robots.txt. -->
+    <title>Templo Expiatorio Arquidiocesano Parroquia El Calvario · Masaya</title>
+    <meta name="description" content="Templo Expiatorio Arquidiocesano Parroquia El Calvario, Masaya, Nicaragua. Horarios de Misa, confesiones y dirección espiritual, sacramentos, grupos parroquiales, avisos y contacto." />
+    <meta name="robots" content="index, follow, max-image-preview:large" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="es_NI" />
+    <meta property="og:site_name" content="Templo Expiatorio Arquidiocesano Parroquia El Calvario" />
+    <meta property="og:title" content="Templo Expiatorio Arquidiocesano Parroquia El Calvario · Masaya" />
+    <meta property="og:description" content="Un lugar de adoración, reparación y encuentro con Cristo. Horarios de Misa, confesiones, sacramentos y avisos parroquiales." />
+    <meta property="og:image" content="/logo.png" />
+    <meta name="twitter:card" content="summary" />
+
+    <!-- Structured data: tells search engines this is a Catholic church in Masaya,
+         with the other names people use to look for it. -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Church",
+        "name": "Templo Expiatorio Arquidiocesano Parroquia El Calvario",
+        "alternateName": [
+          "Parroquia El Calvario Masaya",
+          "Templo Expiatorio El Calvario",
+          "Iglesia El Calvario Masaya"
+        ],
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Masaya",
+          "addressCountry": "NI"
+        },
+        "geo": { "@type": "GeoCoordinates", "latitude": 11.977989, "longitude": -86.0876864 },
+        "telephone": "+505 83525200"
+      }
+    </script>
+
+    <!-- Manrope is self-hosted; the serif comes from Google Fonts. The preconnect saves
+         an extra wait on mobile. -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <!-- React replaces this on load. It's the same content in plain HTML, for search
+         engines and link previews that don't run JavaScript. -->
+    <div id="root">
+      <div style="padding:2rem;font-family:sans-serif;color:#7a1f35">
+        <h1>Templo Expiatorio Arquidiocesano Parroquia El Calvario — Masaya</h1>
+        <p>
+          Templo Expiatorio Arquidiocesano Parroquia El Calvario, Masaya, Nicaragua:
+          horarios de Misa, confesiones y dirección espiritual, sacramentos, grupos
+          parroquiales, avisos, galería y contacto.
+        </p>
+      </div>
+    </div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

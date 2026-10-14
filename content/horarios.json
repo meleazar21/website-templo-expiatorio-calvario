@@ -1,0 +1,17 @@
+{
+  "misas": [
+    { "dia": "Lunes a miércoles", "hora": "6:00 pm", "nota": "" },
+    { "dia": "Jueves", "hora": "6:45 am y 5:30 pm", "nota": "" },
+    { "dia": "Viernes", "hora": "6:00 pm", "nota": "" },
+    { "dia": "Sábado", "hora": "5:30 pm", "nota": "" },
+    { "dia": "Domingo", "hora": "6:45 am, 8:30 am, 10:30 am y 5:30 pm", "nota": "" }
+  ],
+  "confesiones": [
+    { "dia": "Martes, miércoles y viernes", "hora": "10:00 am a 12:00 md y 4:00 pm a 6:00 pm", "nota": "" },
+    { "dia": "Sábado", "hora": "10:00 am a 1:00 pm", "nota": "" },
+    { "dia": "1.er y 2.º martes del mes", "hora": "4:00 pm a 6:00 pm", "nota": "Esos martes solo hay confesiones por la tarde." }
+  ],
+  "direccionEspiritual": [
+    { "dia": "Todos los jueves", "hora": "Previa cita", "nota": "Agéndala en la secretaría parroquial." }
+  ]
+}

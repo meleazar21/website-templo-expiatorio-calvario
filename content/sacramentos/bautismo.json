@@ -1,0 +1,18 @@
+{
+  "orden": 1,
+  "nombre": "Bautismo",
+  "icono": "water",
+  "descripcion": "Primer sacramento de la iniciación cristiana: nos hace hijos de Dios y miembros de la Iglesia. Padres y padrinos participan antes en la charla de preparación.",
+  "requisitos": [
+    {
+      "texto": "Partida de nacimiento del niño(a)"
+    },
+    {
+      "texto": "Fe de bautismo de los padrinos"
+    },
+    {
+      "texto": "Fotocopia de cédula de los padres"
+    }
+  ],
+  "nota": ""
+}
