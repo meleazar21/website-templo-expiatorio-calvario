@@ -7,6 +7,10 @@ import { Eyebrow, Icon, Lead, Provisional, Reveal, Section, Title, type IconName
  */
 export function Contact() {
   const socials = contact.socials.filter((r) => r.url);
+  // "Día: horas", one per line. Split on ": " (with the space) so "8:30" stays whole.
+  const officeHours = contact.officeHours
+    .split("\n").map((l) => l.trim()).filter(Boolean)
+    .map((l) => { const i = l.indexOf(": "); return i < 0 ? [l, ""] : [l.slice(0, i), l.slice(i + 2)]; });
 
   const details: { icon: IconName; k: string; v: string; href?: string }[] = [
     { icon: "phone", k: "Teléfono", v: contact.phone, href: isPlaceholder(contact.phone) ? undefined : `tel:+${contact.phone.replace(/\D/g, "")}` },
@@ -35,7 +39,20 @@ export function Contact() {
                 <div className="min-w-0">
                   <dt className="text-[0.68rem] font-extrabold uppercase tracking-[0.14em] text-ink-faint">{d.k}</dt>
                   <dd className="mt-1 break-words font-semibold text-wine-deep">
-                    {d.href ? (
+                    {d.k === "Horario de oficina parroquial" && officeHours.length > 1 ? (
+                      <table className="mt-1 text-[0.95rem]">
+                        <tbody>
+                          {officeHours.map(([day, hours]) => (
+                            <tr key={day}>
+                              <th scope="row" className="py-0.5 pr-4 text-left font-semibold text-wine-deep">{day}</th>
+                              <td className={`py-0.5 tabular-nums ${/cerrad/i.test(hours) ? "font-medium text-ink-faint" : "font-semibold text-wine-deep"}`}>
+                                {hours}
+                              </td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    ) : d.href ? (
                       <a
                         href={d.href}
                         {...(d.href.startsWith("http") ? { target: "_blank", rel: "noopener noreferrer" } : {})}

@@ -214,7 +214,7 @@ collections:
           - { name: telefono, label: "Teléfono", widget: string }
           - { name: whatsapp, label: "WhatsApp", widget: string, required: false, hint: "Con código de país. Ej.: +505 88887777. También activa el botón verde flotante." }
           - { name: direccion, label: "Dirección", widget: string }
-          - { name: horarioAtencion, label: "Horario de oficina parroquial", widget: string }
+          - { name: horarioAtencion, label: "Horario de oficina parroquial", widget: text, hint: "Un día por línea, con dos puntos entre el día y la hora. Ej.: Martes a viernes: 8:30 am – 4:30 pm" }
           - { name: mapaEmbedUrl, label: "Mapa — ubicación del templo", widget: string, required: false, hint: "Busca el templo en Google Maps y copia la dirección de la barra del navegador (la larga, https://www.google.com/maps/place/...). NO uses el enlace corto del botón Compartir." }
           - { name: facebook, label: "Facebook", widget: string, required: false, hint: "Si se deja vacío no aparece." }
           - { name: instagram, label: "Instagram", widget: string, required: false, hint: "Si se deja vacío no aparece." }
