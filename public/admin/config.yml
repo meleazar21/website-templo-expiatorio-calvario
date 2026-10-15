@@ -113,7 +113,14 @@ collections:
     sortable_fields: [nombre]
     fields:
       - { name: nombre, label: "Nombre del grupo", widget: string }
-      - { name: imagen, label: "Foto o cartel", widget: image, required: false, hint: "Opcional. Se ve entera y al tocarla se abre en grande." }
+      - { name: imagen, label: "Logo o cartel", widget: image, required: false, hint: "Opcional. Es lo primero que se ve en la tarjeta; se muestra entera." }
+      - name: fotos
+        label: "Fotos del grupo"
+        label_singular: "Foto"
+        widget: list
+        required: false
+        hint: "Opcional. Van en un carrusel después del logo; se pasan con las flechas."
+        field: { name: foto, label: "Foto", widget: image }
       - { name: descripcion, label: "Descripción", widget: text, hint: "Separa los párrafos con una línea en blanco. El primero se ve en la tarjeta; los demás, al tocar «Ver información»." }
       - { name: encuentros, label: "Encuentros", widget: string, hint: "Cuándo se reúnen. Ej.: Jueves · 7:00 pm" }
       - { name: enlace, label: "Enlace (opcional)", widget: string, required: false, hint: "Página web o WhatsApp del grupo." }

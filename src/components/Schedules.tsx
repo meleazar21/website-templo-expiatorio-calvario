@@ -14,10 +14,17 @@ function splitTimes(hora: string): string[] {
 /**
  * Masses, confessions and spiritual direction, side by side: three short lists read
  * better as three cards than as one long table, and on the phone they stack.
+ *
+ * Each time is a gold pill and they sit side by side, so a day with four Masses takes
+ * one or two lines instead of four, and the eye finds the hour at a glance.
  */
 export function Schedules() {
   return (
-    <Section id="horarios" className="bg-wine-deep">
+    <Section
+      id="horarios"
+      // A soft glow from the top, like the hero's, so the wine isn't a flat block.
+      className="bg-wine-deep bg-[radial-gradient(80%_55%_at_50%_0%,#6b1a2e_0%,transparent_70%)]"
+    >
       <Reveal>
         <div className="text-center">
           <Eyebrow light>Te esperamos</Eyebrow>
@@ -28,32 +35,36 @@ export function Schedules() {
       <div className="mt-14 grid gap-6 md:grid-cols-3">
         {schedules.map((s, i) => (
           <Reveal key={s.key} delay={i * 90} className="h-full">
-            <article className="h-full rounded-2xl border border-white/[0.12] bg-white/[0.04] p-7">
-              <div className="flex items-center gap-3">
-                <span className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-gold/15 text-gold-light">
+            <article className="relative h-full overflow-hidden rounded-3xl border border-gold/20 bg-gradient-to-b from-white/[0.08] to-white/[0.02] p-7 shadow-[0_20px_50px_-20px_rgba(0,0,0,0.5)] sm:p-8">
+              {/* Gold hairline across the top of the card. */}
+              <div className="absolute inset-x-8 top-0 h-px bg-gradient-to-r from-transparent via-gold to-transparent" />
+
+              <div className="flex items-center gap-4">
+                <span className="inline-flex h-12 w-12 shrink-0 items-center justify-center rounded-full border border-gold/40 bg-gold/10 text-gold-light">
                   <Icon name={s.icon} size={22} />
                 </span>
-                <h3 className="text-[1.5rem] leading-tight text-white">{s.title}</h3>
+                <h3 className="text-[1.6rem] leading-tight text-white">{s.title}</h3>
               </div>
 
-              <dl className="mt-6 divide-y divide-white/10">
+              <dl className="mt-7 space-y-6">
                 {s.rows.map((r, k) => (
-                  <div key={k} className="py-4 first:pt-0 last:pb-0">
-                    <dt className="text-[0.7rem] font-extrabold uppercase tracking-[0.16em] text-gold-light">
+                  <div key={k}>
+                    <dt className="flex items-center gap-2 text-[0.7rem] font-extrabold uppercase tracking-[0.16em] text-gold-light">
+                      <span className="h-1.5 w-1.5 rotate-45 bg-gold" aria-hidden="true" />
                       <Provisional text={r.dia} />
                     </dt>
-                    <dd className="mt-2">
-                      <ul className="space-y-1.5">
+                    <dd className="mt-3">
+                      <ul className="flex flex-wrap gap-2">
                         {splitTimes(r.hora).map((t, j) => (
-                          <li key={j} className="flex items-start gap-2 font-semibold tabular-nums text-white">
-                            <Icon name="clock" size={16} className="mt-1 shrink-0 text-white/50" />
-                            <span><Provisional text={t} /></span>
+                          <li key={j} className="inline-flex items-center gap-1.5 rounded-full border border-gold/30 bg-white/[0.06] py-1.5 pl-2.5 pr-3.5 text-[0.95rem] font-semibold tabular-nums text-white">
+                            <Icon name="clock" size={15} className="shrink-0 text-gold-light/80" />
+                            <Provisional text={t} />
                           </li>
                         ))}
                       </ul>
                     </dd>
                     {r.nota && (
-                      <dd className="mt-1 pl-6 text-[0.85rem] text-white/60">
+                      <dd className="mt-2.5 text-[0.85rem] italic leading-snug text-white/60">
                         <Provisional text={r.nota} />
                       </dd>
                     )}

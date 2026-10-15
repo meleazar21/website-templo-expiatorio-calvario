@@ -16,10 +16,68 @@ function groupLinks(g: Group): { name: string; icon: IconName; url: string; back
 }
 
 /**
+ * The card's header: the logo, then the group's photos, changed by hand with the arrows
+ * or dots (several cards rotating at once would pull the eye all over). The logo is shown whole on ivory; photos fill the frame. The frame has a fixed
+ * height so the card doesn't jump between a tall logo and a wide photo. Tapping opens
+ * the current image large.
+ */
+function GroupMedia({ images, hasLogo, name, onOpen }: {
+  images: string[]; hasLogo: boolean; name: string; onOpen: (src: string) => void;
+}) {
+  const [index, setIndex] = useState(0);
+  const count = images.length;
+  const go = (i: number) => setIndex((i + count) % count);
+
+  if (count === 1) {
+    return (
+      <button type="button" onClick={() => onOpen(images[0])} title="Ver la imagen en grande"
+        className="group block w-full bg-ivory-deep">
+        <img src={images[0]} alt={name} loading="lazy"
+          className="max-h-64 w-full object-contain transition-transform duration-300 group-hover:scale-[1.03]" />
+      </button>
+    );
+  }
+
+  return (
+    <div className="relative h-64 bg-ivory-deep" aria-roledescription="carrusel" aria-label={name}>
+      <button type="button" onClick={() => onOpen(images[index])} title="Ver la imagen en grande"
+        className="group absolute inset-0 block overflow-hidden">
+        {images.map((src, i) => (
+          <img key={src} src={src} alt={hasLogo && i === 0 ? name : `${name}, foto ${hasLogo ? i : i + 1}`} loading="lazy"
+            aria-hidden={i !== index}
+            className={`absolute inset-0 h-full w-full transition-[opacity,transform] duration-700 group-hover:scale-[1.03] ${
+              hasLogo && i === 0 ? "object-contain" : "object-cover"
+            } ${i === index ? "opacity-100" : "opacity-0"}`} />
+        ))}
+      </button>
+      {[
+        { label: "Imagen anterior", step: -1, side: "left-2", flip: "rotate-180" },
+        { label: "Imagen siguiente", step: 1, side: "right-2", flip: "" },
+      ].map((a) => (
+        <button key={a.step} type="button" onClick={() => go(index + a.step)} aria-label={a.label}
+          className={`absolute top-1/2 ${a.side} inline-flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full bg-wine-deep/55 text-white shadow transition-colors hover:bg-wine-deep/80`}>
+          <Icon name="arrow" size={16} className={a.flip} />
+        </button>
+      ))}
+      <div className="absolute inset-x-0 bottom-2.5 flex justify-center gap-1">
+        {images.map((_, i) => (
+          <button key={i} type="button" onClick={() => go(i)}
+            aria-label={hasLogo && i === 0 ? "Ver el logo" : `Ver foto ${hasLogo ? i : i + 1}`} aria-current={i === index}
+            className="p-1">
+            <span className={`block h-1.5 rounded-full shadow transition-all duration-500 ${
+              i === index ? "w-6 bg-gold" : "w-1.5 bg-white/80"
+            }`} />
+          </button>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+/**
  * Parish groups. The card shows the name and description; when they meet lives behind
- * "Ver información", so cards with descriptions of different
- * lengths still line up. If the group has a photo or poster, it heads the card whole
- * (not cropped) and opens large when tapped.
+ * "Ver información", so cards with descriptions of different lengths still line up.
+ * If the group has a logo or photos, they head the card (see GroupMedia).
  */
 export function Groups() {
   const [openGroup, setOpenGroup] = useState<string | null>(null);
@@ -44,23 +102,17 @@ export function Groups() {
           // The first paragraph goes on the card; any others open with "Ver información",
           // so one long description doesn't stretch every card in its row.
           const [intro, ...more] = paragraphs(g.descripcion);
+          const images = [g.imagen, ...(g.fotos ?? [])].filter((s): s is string => Boolean(s));
           return (
             <Reveal key={g.nombre} delay={(i % 3) * 90} className="h-full">
               <article className="flex h-full flex-col overflow-hidden rounded-2xl border border-wine/[0.08] bg-white shadow-card transition-all hover:-translate-y-1 hover:shadow-lift">
-                {g.imagen && (
-                  <button
-                    type="button"
-                    onClick={() => setPoster({ src: g.imagen!, alt: g.nombre })}
-                    title="Ver la imagen en grande"
-                    className="group block w-full bg-ivory-deep"
-                  >
-                    <img src={g.imagen} alt={g.nombre} loading="lazy"
-                      className="max-h-64 w-full object-contain transition-transform duration-300 group-hover:scale-[1.03]" />
-                  </button>
+                {images.length > 0 && (
+                  <GroupMedia images={images} hasLogo={Boolean(g.imagen)} name={g.nombre}
+                    onOpen={(src) => setPoster({ src, alt: g.nombre })} />
                 )}
 
                 <div className="flex flex-1 flex-col p-7">
-                  {!g.imagen && (
+                  {images.length === 0 && (
                     <span className="mb-5 inline-flex h-11 w-11 items-center justify-center rounded-xl bg-gold-soft text-[#8a6d22]">
                       <Icon name="cross" size={22} />
                     </span>

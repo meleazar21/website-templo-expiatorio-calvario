@@ -54,8 +54,10 @@ export const priests = loadCollection<Priest>(
 // ---------------------------------------------------------------- Parish groups
 export interface Group {
   nombre: string;
-  /** Group photo or poster. Empty = the card shows the default icon. */
+  /** Group logo or poster. Empty (and no photos) = the card shows the default icon. */
   imagen?: string;
+  /** Photos of the group; they follow the logo in the card's carousel. */
+  fotos?: string[];
   descripcion: string;
   /** When they meet. */
   encuentros: string;

@@ -1,9 +1,12 @@
 {
   "nombre": "Catequistas",
   "imagen": "/fotos/catequistas-logo.png",
-  "descripcion": "Somos una comunidad de catequistas al servicio de la evangelización y la formación en la fe, encargada de impartir los cursos de catequesis del Templo y acompañar a niños, jóvenes y adultos en su encuentro con Cristo.\n\nContamos con equipos de comunicación y redes sociales, retiros espirituales y pastorales, ingeniería y tecnología, producción audiovisual y fotografía, así como formación catequética, bíblica, teológica y doctrinal. También contamos con un equipo de catequistas jóvenes.\n\nCompartimos juntos la fe, la formación, la oración y el servicio, poniendo nuestros dones al servicio de Cristo, de la Iglesia y de nuestra comunidad.",
+  "descripcion": "Somos una comunidad de catequistas al servicio de la evangelización y la formación en la fe. Impartimos los cursos de catequesis del Templo y acompañamos a niños, jóvenes y adultos en su encuentro con Cristo.\n\nNuestra comunidad reúne distintos dones y talentos puestos al servicio de la Iglesia: contamos con equipos de comunicación y redes sociales, retiros y pastoral, ingeniería y tecnología, producción audiovisual y fotografía, además de formación catequética, bíblica, teológica y doctrinal. También contamos con un equipo de catequistas jóvenes.\n\nCompartimos la fe, la formación, la oración y el servicio, creciendo juntos como comunidad y buscando que cada persona pueda descubrir cómo poner sus talentos al servicio de Cristo y de los demás.\n¿Quieres formar parte? Hay un lugar para ti y para los dones que Dios te ha dado",
   "encuentros": "Domingos · 8:30 am – 11:00 am",
   "enlace": "https://website-catequesis-templo-expiatori.vercel.app/",
   "facebook": "https://www.facebook.com/profile.php?id=61560166110205",
-  "instagram": "https://www.instagram.com/catequesis.templo.calvario/"
+  "instagram": "https://www.instagram.com/catequesis.templo.calvario/",
+  "fotos": [
+    "/fotos/catequistas-todos.jpeg"
+  ]
 }
