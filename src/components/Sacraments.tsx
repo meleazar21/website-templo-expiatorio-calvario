@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { sacraments } from "../data/parish";
+import { isPlaceholder } from "../data/site";
 import { Eyebrow, Icon, Lead, Provisional, Reveal, Section, Title } from "./ui";
 
 /**
@@ -27,6 +28,7 @@ export function Sacraments() {
         {sacraments.map((s, i) => {
           const expanded = open === s.nombre;
           const hasDetails = s.requisitos.length > 0 || Boolean(s.nota);
+          const link = s.enlace && !isPlaceholder(s.enlace) ? s.enlace : "";
           return (
             <Reveal key={s.nombre} delay={(i % 3) * 90} className="w-full sm:w-[calc(50%-0.75rem)] lg:w-[calc(33.333%-1rem)]">
               <article className="flex h-full flex-col rounded-2xl border border-wine/[0.08] bg-white p-7 shadow-card transition-shadow hover:shadow-lift">
@@ -36,17 +38,27 @@ export function Sacraments() {
                 <h3 className="mt-5 text-[1.45rem] leading-tight text-wine-deep">{s.nombre}</h3>
                 <p className="mt-3 text-[0.92rem] leading-relaxed text-ink-soft">{s.descripcion}</p>
 
-                {hasDetails && (
+                {(hasDetails || link) && (
                   <div className="mt-auto pt-6">
-                    <button
-                      type="button"
-                      onClick={() => setOpen(expanded ? null : s.nombre)}
-                      aria-expanded={expanded}
-                      className="inline-flex items-center gap-1.5 text-[0.78rem] font-extrabold uppercase tracking-[0.13em] text-wine transition-colors hover:text-gold"
-                    >
-                      {expanded ? "Ocultar" : "Ver requisitos"}
-                      <Icon name="chevron" size={16} className={`transition-transform ${expanded ? "rotate-180" : ""}`} />
-                    </button>
+                    {link && (
+                      <a
+                        href={link} target="_blank" rel="noopener noreferrer"
+                        className="mb-4 flex w-full items-center justify-center gap-2 rounded-full bg-wine px-5 py-3 text-[0.74rem] font-extrabold uppercase tracking-[0.12em] text-white transition-colors hover:bg-wine-light"
+                      >
+                        {s.enlaceTexto || "Más información"} <Icon name="arrow" size={15} />
+                      </a>
+                    )}
+                    {hasDetails && (
+                      <button
+                        type="button"
+                        onClick={() => setOpen(expanded ? null : s.nombre)}
+                        aria-expanded={expanded}
+                        className="inline-flex items-center gap-1.5 text-[0.78rem] font-extrabold uppercase tracking-[0.13em] text-wine transition-colors hover:text-gold"
+                      >
+                        {expanded ? "Ocultar" : "Ver requisitos"}
+                        <Icon name="chevron" size={16} className={`transition-transform ${expanded ? "rotate-180" : ""}`} />
+                      </button>
+                    )}
 
                     {expanded && (
                       <div className="mt-4 border-t border-wine/[0.08] pt-4 text-[0.88rem]">

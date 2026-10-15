@@ -14,5 +14,7 @@
       "texto": "Haber completado el curso de catequesis"
     }
   ],
-  "nota": ""
+  "nota": "",
+  "enlace": "https://website-catequesis-templo-expiatori.vercel.app/",
+  "enlaceTexto": "Ir a la web de Catequesis"
 }

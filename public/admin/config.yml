@@ -161,6 +161,8 @@ collections:
         required: false
         fields: [{ name: texto, label: "Requisito", widget: string }]
       - { name: nota, label: "Nota importante (opcional)", widget: text, required: false, hint: "Se muestra en un recuadro dorado debajo de los requisitos." }
+      - { name: enlace, label: "Enlace a inscripciones (opcional)", widget: string, required: false, hint: "Página con requisitos detallados e inscripciones, p. ej. la web de Catequesis. Muestra un botón en la tarjeta." }
+      - { name: enlaceTexto, label: "Texto del botón (opcional)", widget: string, required: false, hint: "Corto, dice adónde lleva. Ej.: Info en la web de Catequesis. Vacío: «Más información»." }
 
   # ------------------------------------------------------------------ Gallery
   - name: galeria

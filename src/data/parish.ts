@@ -81,6 +81,10 @@ export interface Sacrament {
   descripcion: string;
   requisitos: string[];
   nota?: string;
+  /** Optional page with the detailed requirements and sign-up (e.g. the catechesis site). */
+  enlace?: string;
+  /** The button's label; says where it goes. */
+  enlaceTexto?: string;
 }
 interface SacramentRaw extends Omit<Sacrament, "requisitos"> { requisitos?: Line[] }
 

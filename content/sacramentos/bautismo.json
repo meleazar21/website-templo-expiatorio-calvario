@@ -14,5 +14,7 @@
       "texto": "Fotocopia de cédula de los padres"
     }
   ],
-  "nota": ""
+  "nota": "",
+  "enlace": "https://website-catequesis-templo-expiatori.vercel.app/",
+  "enlaceTexto": "ir a la web de Catequesis"
 }
