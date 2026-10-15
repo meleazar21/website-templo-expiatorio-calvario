@@ -34,11 +34,11 @@ export function Priests() {
             >
               {p.foto ? (
                 <img src={p.foto} alt={p.nombre} loading="lazy" decoding="async"
-                  /* 4:3 on the phone: a portrait photo filled the whole screen before the
-                     name even appeared. */
-                  className="aspect-[4/3] w-full object-cover object-[center_25%] sm:aspect-auto sm:w-56 sm:shrink-0" />
+                  /* Square on the phone: a portrait photo at full height filled the screen
+                     before the name appeared, and 4:3 cut the face off at the bottom. */
+                  className="aspect-square w-full object-cover object-[center_55%] sm:aspect-auto sm:w-56 sm:shrink-0" />
               ) : (
-                <PhotoPlaceholder label={p.nombre} className="aspect-[4/3] w-full sm:aspect-auto sm:w-56 sm:shrink-0" />
+                <PhotoPlaceholder label={p.nombre} className="aspect-square w-full sm:aspect-auto sm:w-56 sm:shrink-0" />
               )}
 
               <div className="flex flex-1 flex-col p-7">

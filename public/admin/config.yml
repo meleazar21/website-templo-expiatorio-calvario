@@ -180,7 +180,6 @@ collections:
       - { name: orden, label: "Orden en que aparece", widget: number, value_type: int, default: 1 }
       - { name: titulo, label: "Título", widget: string }
       - { name: foto, label: "Fotografía", widget: image, required: false, hint: "JPG de menos de 300 KB y no más de 1600 px de ancho." }
-      - { name: alto, label: "Tamaño en el mosaico", widget: select, options: [corto, medio, alto], default: medio }
 
   # ------------------------------------------------------------------ Site
   - name: sitio

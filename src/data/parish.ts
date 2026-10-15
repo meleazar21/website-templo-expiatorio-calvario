@@ -115,8 +115,6 @@ export interface GalleryPhoto {
   titulo: string;
   /** Image path. Empty = a "photo to be defined" placeholder is drawn. */
   foto?: string;
-  /** Relative height, so the masonry grid doesn't look flat. */
-  alto: "corto" | "medio" | "alto";
 }
 export const gallery = loadCollection<GalleryPhoto>(
   import.meta.glob("../../content/galeria/*.json", { eager: true })
