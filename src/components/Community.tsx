@@ -1,8 +1,11 @@
+import { useState } from "react";
 import { community } from "../data/site";
-import { Eyebrow, Icon, Lead, PhotoPlaceholder, Provisional, Reveal, Section, Title } from "./ui";
+import { Eyebrow, Icon, Lead, Lightbox, PhotoPlaceholder, Provisional, Reveal, Section, Title } from "./ui";
 
 /** About the temple: what the expiatory temple is and what it is for, under "Nosotros". */
 export function Community() {
+  const [enlarged, setEnlarged] = useState(false);
+
   return (
     <Section id="nosotros">
       <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
@@ -23,8 +26,16 @@ export function Community() {
         <Reveal delay={120}>
           <div className="relative">
             {community.photo ? (
-              <img src={community.photo} alt="" loading="lazy"
-                className="aspect-[4/3] w-full rounded-2xl object-cover shadow-card" />
+              <button
+                type="button" onClick={() => setEnlarged(true)}
+                aria-label={`Ver en grande: ${community.title}`} title="Ver la imagen en grande"
+                className="group block w-full cursor-zoom-in overflow-hidden rounded-2xl shadow-card"
+              >
+                {/* Its own proportions, not a fixed frame: a group photo cropped to 4:3
+                    lost the people at both ends. */}
+                <img src={community.photo} alt={community.title} loading="lazy"
+                  className="h-auto w-full transition-transform duration-500 group-hover:scale-[1.03]" />
+              </button>
             ) : (
               <PhotoPlaceholder label="La comunidad reunida en el templo"
                 className="aspect-[4/3] w-full rounded-2xl shadow-card" />
@@ -34,6 +45,10 @@ export function Community() {
           </div>
         </Reveal>
       </div>
+
+      {enlarged && community.photo && (
+        <Lightbox src={community.photo} alt={community.title} onClose={() => setEnlarged(false)} />
+      )}
     </Section>
   );
 }
