@@ -37,6 +37,9 @@ export const schedules: { key: string; title: string; icon: IconName; rows: Sche
   { key: "direccion", title: "Dirección espiritual", icon: "book", rows: schedulesRaw.direccionEspiritual ?? [] },
 ];
 
+/** Masses at the Capilla Espíritu Santo, which belongs to the temple. */
+export const chapelMasses: ScheduleRow[] = schedulesRaw.capillaEspirituSanto ?? [];
+
 // ---------------------------------------------------------------- Priests
 export interface Priest {
   orden?: number;

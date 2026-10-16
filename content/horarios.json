@@ -13,5 +13,8 @@
   ],
   "direccionEspiritual": [
     { "dia": "Todos los jueves", "hora": "Previa cita", "nota": "Agéndala en la secretaría parroquial." }
+  ],
+  "capillaEspirituSanto": [
+    { "dia": "Domingo", "hora": "11:30 am", "nota": "" }
   ]
 }

@@ -70,27 +70,30 @@ export function Contact() {
           </dl>
 
           {socials.length > 0 && (
-            <div className="mt-10 flex flex-wrap gap-3">
-              {socials.map((r) => (
-                <a
-                  key={r.name}
-                  href={r.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  /* Here the color goes ONLY on the badge, not the whole pill: on the
-                     ivory, four fully colored buttons would clash with the site's
-                     palette. */
-                  className="inline-flex items-center gap-2.5 rounded-full border border-wine/15 py-1.5 pl-1.5 pr-5 text-[0.78rem] font-extrabold uppercase tracking-[0.12em] text-wine transition-colors hover:border-gold hover:text-gold"
-                >
-                  <span
-                    style={{ background: r.background }}
-                    className="inline-flex h-8 w-8 items-center justify-center rounded-full text-white"
-                  >
-                    <Icon name={r.icon} size={16} />
-                  </span>
-                  {r.name}
-                </a>
-              ))}
+            <div className="mt-8 flex gap-4">
+              {/* Spacer the width of the icons above, so the label lines up with the
+                  other labels in the list. */}
+              <span className="w-10 shrink-0" aria-hidden="true" />
+              <div>
+                <p className="text-[0.68rem] font-extrabold uppercase tracking-[0.14em] text-ink-faint">Síguenos</p>
+                {/* Round buttons with only the logo, like the footer's and the groups'. */}
+                <div className="mt-2.5 flex flex-wrap gap-2.5">
+                  {socials.map((r) => (
+                    <a
+                      key={r.name}
+                      href={r.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={`${r.name} de la parroquia`}
+                      title={r.name}
+                      style={{ background: r.background }}
+                      className="inline-flex h-11 w-11 items-center justify-center rounded-full text-white shadow-card transition-transform hover:-translate-y-0.5"
+                    >
+                      <Icon name={r.icon} size={20} />
+                    </a>
+                  ))}
+                </div>
+              </div>
             </div>
           )}
         </Reveal>

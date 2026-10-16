@@ -60,6 +60,14 @@ collections:
             widget: list
             summary: "{{fields.dia}} · {{fields.hora}}"
             fields: *scheduleFields
+          - name: capillaEspirituSanto
+            label: "Capilla Espíritu Santo — Santa Misa"
+            label_singular: "Horario"
+            widget: list
+            required: false
+            hint: "Se muestran debajo de los horarios del templo. Si se deja vacío, la capilla no aparece."
+            summary: "{{fields.dia}} · {{fields.hora}}"
+            fields: *scheduleFields
 
   # ------------------------------------------------------------------ Announcements
   - name: avisos
