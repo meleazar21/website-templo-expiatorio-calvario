@@ -5,7 +5,10 @@
   "encuentros": "Domingos · 8:30 am – 11:00 am",
   "nombre": "Catequistas",
   "descripcion": "Somos una comunidad de catequistas al servicio de la evangelización y la formación en la fe. Impartimos los cursos de catequesis del Templo y acompañamos a niños, jóvenes y adultos en su encuentro con Cristo.\n\nNuestra comunidad reúne distintos dones y talentos puestos al servicio de la Iglesia: contamos con equipos de comunicación y redes sociales, retiros y pastoral, ingeniería y tecnología, producción audiovisual y fotografía, además de formación catequética, bíblica, teológica y doctrinal. También contamos con un equipo de catequistas jóvenes.\n\nCompartimos la fe, la formación, la oración y el servicio, creciendo juntos como comunidad y buscando que cada persona pueda descubrir cómo poner sus talentos al servicio de Cristo y de los demás.\n¿Quieres formar parte? Hay un lugar para ti y para los dones que Dios te ha dado",
-  "fotos": [],
+  "fotos": [
+    "/fotos/foto-catequistas.webp",
+    "/fotos/a7401083.jpg"
+  ],
   "instagram": "https://www.instagram.com/catequesis.templo.calvario/",
   "imagen": "/fotos/catequistas-logo.png"
 }
