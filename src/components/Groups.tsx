@@ -145,11 +145,11 @@ export function Groups() {
                           {[
                             { k: "Encuentros", v: g.encuentros },
                           ].map((f) => (
-                            <div key={f.k} className="flex gap-2">
-                              <dt className="w-24 shrink-0 text-[0.7rem] font-extrabold uppercase tracking-[0.12em] text-ink-faint">
+                            <div key={f.k}>
+                              <dt className="text-[0.7rem] font-extrabold uppercase tracking-[0.12em] text-ink-faint">
                                 {f.k}
                               </dt>
-                              <dd className="font-semibold text-wine">
+                              <dd className="mt-1.5 font-semibold text-wine">
                                 <Provisional text={f.v} />
                               </dd>
                             </div>
