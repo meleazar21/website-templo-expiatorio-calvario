@@ -70,6 +70,8 @@ export interface Group {
   facebook?: string;
   /** Optional link to the group's Instagram profile. */
   instagram?: string;
+  /** Optional link to the group's YouTube channel or a video. */
+  youtube?: string;
 }
 /** Alphabetical by name, so a new group from the panel falls into place on its own. */
 export const groups = Object.values(

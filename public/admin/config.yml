@@ -134,6 +134,7 @@ collections:
       - { name: enlace, label: "Enlace (opcional)", widget: string, required: false, hint: "Página web o WhatsApp del grupo." }
       - { name: facebook, label: "Facebook (opcional)", widget: string, required: false, hint: "Enlace a la página de Facebook del grupo." }
       - { name: instagram, label: "Instagram (opcional)", widget: string, required: false, hint: "Enlace al perfil de Instagram del grupo." }
+      - { name: youtube, label: "YouTube (opcional)", widget: string, required: false, hint: "Enlace al canal o a un video del grupo en YouTube." }
 
   # ------------------------------------------------------------------ Sacraments
   - name: sacramentos
