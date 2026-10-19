@@ -74,7 +74,17 @@ export function Footer() {
         </div>
 
         <div className="mt-14 border-t border-white/[0.12] pt-7 text-center text-[0.8rem] text-white/45">
-          © {year} {site.brand}
+          <p>© {year} {site.brand}</p>
+          <p className="mt-2 text-[0.75rem] text-white/35">
+            Powered By{" "}
+            <a
+              href="https://website-catequesis-templo-expiatori.vercel.app/"
+              target="_blank" rel="noopener noreferrer"
+              className="font-semibold text-white/55 transition-colors hover:text-gold-light"
+            >
+              Catequistas Templo Expiatorio el Calvario
+            </a>
+          </p>
         </div>
       </div>
     </footer>
