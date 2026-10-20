@@ -15,6 +15,7 @@
     { "dia": "Todos los jueves", "hora": "Previa cita", "nota": "Agéndala en la secretaría parroquial." }
   ],
   "capillaEspirituSanto": [
+    { "dia": "Jueves", "hora": "4:00 pm", "nota": "" },
     { "dia": "Domingo", "hora": "11:30 am", "nota": "" }
   ]
 }

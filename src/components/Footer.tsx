@@ -82,7 +82,7 @@ export function Footer() {
               target="_blank" rel="noopener noreferrer"
               className="font-semibold text-white/55 transition-colors hover:text-gold-light"
             >
-              Catequistas Templo Expiatorio el Calvario
+              Catequistas Templo Expiatorio El Calvario
             </a>
           </p>
         </div>

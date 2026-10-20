@@ -5,7 +5,34 @@
   "descripcion": "Alianza de amor entre un hombre y una mujer bendecida por Dios. Se recomienda acercarse a la parroquia con varios meses de anticipación.",
   "requisitos": [
     {
-      "texto": "[CONTENIDO POR DEFINIR]"
+      "texto": "Fotocopia de cédula de los novios"
+    },
+    {
+      "texto": "Foto tamaño carné (1 de cada uno)"
+    },
+    {
+      "texto": "Certificado de Bautismo, Primera Comunión y Confirmación de ambos"
+    },
+    {
+      "texto": "Certificado de charla prematrimonial"
+    },
+    {
+      "texto": "Certificado de boda civil"
+    },
+    {
+      "texto": "Fotocopia de cédula de 2 testigos para el llenado del expediente"
+    },
+    {
+      "texto": "Certificado de matrimonio religioso de los padrinos de boda"
+    },
+    {
+      "texto": "Carta de permiso del párroco de la parroquia a la que pertenecen"
+    },
+    {
+      "texto": "Llenar el expediente matrimonial 3 meses antes de la fecha de la boda"
+    },
+    {
+      "texto": "Confesión de la pareja antes de la boda"
     }
   ],
   "nota": ""
