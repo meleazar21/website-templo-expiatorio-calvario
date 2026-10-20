@@ -18,38 +18,54 @@ function groupLinks(g: Group): { name: string; icon: IconName; url: string; back
 
 /**
  * The card's header: the logo, then the group's photos, changed by hand with the arrows
- * or dots (several cards rotating at once would pull the eye all over). The logo is shown whole on ivory; photos fill the frame. The frame has a fixed
- * height so the card doesn't jump between a tall logo and a wide photo. Tapping opens
- * the current image large.
+ * or dots (several cards rotating at once would pull the eye all over). The logo is
+ * shown whole on ivory; photos fill the frame. A group with photos but no logo gets the
+ * cross placeholder in the logo's place, so its first slide still says "parish group".
+ * The frame has a fixed height so the card doesn't jump between a tall logo and a wide
+ * photo. Tapping opens the current image large.
  */
-function GroupMedia({ images, hasLogo, name, onOpen }: {
-  images: string[]; hasLogo: boolean; name: string; onOpen: (src: string) => void;
+function GroupMedia({ logo, photos, name, onOpen }: {
+  logo?: string; photos: string[]; name: string; onOpen: (src: string) => void;
 }) {
   const [index, setIndex] = useState(0);
-  const count = images.length;
+  // "" in the first slot = the cross placeholder.
+  const slides = [logo ?? "", ...photos];
+  const count = slides.length;
   const go = (i: number) => setIndex((i + count) % count);
 
   if (count === 1) {
     return (
-      <button type="button" onClick={() => onOpen(images[0])} title="Ver la imagen en grande"
+      <button type="button" onClick={() => onOpen(slides[0])} title="Ver la imagen en grande"
         className="group block w-full bg-ivory-deep">
-        <img src={images[0]} alt={name} loading="lazy"
+        <img src={slides[0]} alt={name} loading="lazy"
           className="max-h-64 w-full object-contain transition-transform duration-300 group-hover:scale-[1.03]" />
       </button>
     );
   }
 
+  const current = slides[index];
   return (
     <div className="relative h-64 bg-ivory-deep" aria-roledescription="carrusel" aria-label={name}>
-      <button type="button" onClick={() => onOpen(images[index])} title="Ver la imagen en grande"
-        className="group absolute inset-0 block overflow-hidden">
-        {images.map((src, i) => (
-          <img key={src} src={src} alt={hasLogo && i === 0 ? name : `${name}, foto ${hasLogo ? i : i + 1}`} loading="lazy"
-            aria-hidden={i !== index}
-            className={`absolute inset-0 h-full w-full transition-[opacity,transform] duration-700 group-hover:scale-[1.03] ${
-              hasLogo && i === 0 ? "object-contain" : "object-cover"
-            } ${i === index ? "opacity-100" : "opacity-0"}`} />
-        ))}
+      <button type="button" onClick={() => current && onOpen(current)}
+        title={current ? "Ver la imagen en grande" : undefined}
+        className={`group absolute inset-0 block overflow-hidden ${current ? "" : "cursor-default"}`}>
+        {slides.map((src, i) => {
+          const fade = `transition-opacity duration-700 ${i === index ? "opacity-100" : "opacity-0"}`;
+          return src ? (
+            <img key={src} src={src} alt={i === 0 ? name : `${name}, foto ${i}`} loading="lazy"
+              aria-hidden={i !== index}
+              className={`absolute inset-0 h-full w-full transition-transform group-hover:scale-[1.03] ${
+                i === 0 ? "object-contain" : "object-cover"
+              } ${fade}`} />
+          ) : (
+            <span key="placeholder" aria-hidden="true"
+              className={`absolute inset-0 flex items-center justify-center ${fade}`}>
+              <span className="inline-flex h-24 w-24 items-center justify-center rounded-full bg-gold-soft text-[#8a6d22] ring-1 ring-gold/30">
+                <Icon name="cross" size={44} />
+              </span>
+            </span>
+          );
+        })}
       </button>
       {[
         { label: "Imagen anterior", step: -1, side: "left-2", flip: "rotate-180" },
@@ -61,9 +77,9 @@ function GroupMedia({ images, hasLogo, name, onOpen }: {
         </button>
       ))}
       <div className="absolute inset-x-0 bottom-2.5 flex justify-center gap-1">
-        {images.map((_, i) => (
+        {slides.map((_, i) => (
           <button key={i} type="button" onClick={() => go(i)}
-            aria-label={hasLogo && i === 0 ? "Ver el logo" : `Ver foto ${hasLogo ? i : i + 1}`} aria-current={i === index}
+            aria-label={i === 0 ? "Ver el inicio" : `Ver foto ${i}`} aria-current={i === index}
             className="p-1">
             <span className={`block h-1.5 rounded-full shadow transition-all duration-500 ${
               i === index ? "w-6 bg-gold" : "w-1.5 bg-white/80"
@@ -103,17 +119,18 @@ export function Groups() {
           // The first paragraph goes on the card; any others open with "Ver información",
           // so one long description doesn't stretch every card in its row.
           const [intro, ...more] = paragraphs(g.descripcion);
-          const images = [g.imagen, ...(g.fotos ?? [])].filter((s): s is string => Boolean(s));
+          const photos = (g.fotos ?? []).filter(Boolean);
+          const hasMedia = Boolean(g.imagen) || photos.length > 0;
           return (
             <Reveal key={g.nombre} delay={(i % 3) * 90} className="h-full">
               <article className="flex h-full flex-col overflow-hidden rounded-2xl border border-wine/[0.08] bg-white shadow-card transition-all hover:-translate-y-1 hover:shadow-lift">
-                {images.length > 0 && (
-                  <GroupMedia images={images} hasLogo={Boolean(g.imagen)} name={g.nombre}
+                {hasMedia && (
+                  <GroupMedia logo={g.imagen || undefined} photos={photos} name={g.nombre}
                     onOpen={(src) => setPoster({ src, alt: g.nombre })} />
                 )}
 
                 <div className="flex flex-1 flex-col p-7">
-                  {images.length === 0 && (
+                  {!hasMedia && (
                     <span className="mb-5 inline-flex h-11 w-11 items-center justify-center rounded-xl bg-gold-soft text-[#8a6d22]">
                       <Icon name="cross" size={22} />
                     </span>
@@ -149,8 +166,11 @@ export function Groups() {
                               <dt className="text-[0.7rem] font-extrabold uppercase tracking-[0.12em] text-ink-faint">
                                 {f.k}
                               </dt>
-                              <dd className="mt-1.5 font-semibold text-wine">
-                                <Provisional text={f.v} />
+                              {/* One line per meeting: each line typed in the panel is a row. */}
+                              <dd className="mt-1.5 space-y-1 font-semibold text-wine">
+                                {f.v.split("\n").map((l) => l.trim()).filter(Boolean).map((l, k) => (
+                                  <p key={k}><Provisional text={l} /></p>
+                                ))}
                               </dd>
                             </div>
                           ))}

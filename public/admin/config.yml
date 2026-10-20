@@ -130,7 +130,7 @@ collections:
         hint: "Opcional. Van en un carrusel después del logo; se pasan con las flechas."
         field: { name: foto, label: "Foto", widget: image }
       - { name: descripcion, label: "Descripción", widget: text, hint: "Separa los párrafos con una línea en blanco. El primero se ve en la tarjeta; los demás, al tocar «Ver información»." }
-      - { name: encuentros, label: "Encuentros", widget: string, hint: "Cuándo se reúnen. Ej.: Jueves · 7:00 pm" }
+      - { name: encuentros, label: "Encuentros", widget: text, hint: "Cuándo se reúnen, un día por línea. Ej.: Jueves · 7:00 pm" }
       - { name: enlace, label: "Enlace (opcional)", widget: string, required: false, hint: "Página web o WhatsApp del grupo." }
       - { name: facebook, label: "Facebook (opcional)", widget: string, required: false, hint: "Enlace a la página de Facebook del grupo." }
       - { name: instagram, label: "Instagram (opcional)", widget: string, required: false, hint: "Enlace al perfil de Instagram del grupo." }
