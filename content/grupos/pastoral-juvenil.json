@@ -1,10 +1,10 @@
 {
   "nombre": "Pastoral Juvenil",
-  "imagen": "/fotos/logo-pj-photoroom.png",
+  "imagen": "/fotos/logo-pj-photoroom.webp",
   "descripcion": "La Pastoral Juvenil es un espacio de encuentro, formación y crecimiento en la fe, donde los jóvenes descubren el amor de Dios, fortalecen su compromiso cristiano y ponen sus talentos al servicio de los demás. Inspirados por el Evangelio, caminamos juntos con alegría, esperanza y espíritu de servicio, construyendo una juventud comprometida con la Iglesia y la sociedad.",
   "fotos": [
-    "/fotos/foto-ii-pj.jpeg",
-    "/fotos/foto-i-pj.jpeg"
+    "/fotos/foto-ii-pj.webp",
+    "/fotos/foto-i-pj.webp"
   ],
   "encuentros": "Sabados · 7:00 pm - 9:00 pm",
   "instagram": "https://www.instagram.com/pj_elcalvario2026?xtok=a20wNHY3Ymswejgy&utm_source=qr",
