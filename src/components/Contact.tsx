@@ -12,9 +12,13 @@ export function Contact() {
     .split("\n").map((l) => l.trim()).filter(Boolean)
     .map((l) => { const i = l.indexOf(": "); return i < 0 ? [l, ""] : [l.slice(0, i), l.slice(i + 2)]; });
 
-  const details: { icon: IconName; k: string; v: string; href?: string }[] = [
-    { icon: "phone", k: "Teléfono", v: contact.phone, href: isPlaceholder(contact.phone) ? undefined : `tel:+${contact.phone.replace(/\D/g, "")}` },
-    { icon: "chat", k: "WhatsApp", v: contact.whatsapp || "[CONTENIDO POR DEFINIR]", href: whatsappUrl || undefined },
+  // The office only answers WhatsApp messages, not calls, so the phone isn't offered
+  // as a separate (callable) item when it's the same number as the WhatsApp one.
+  const samePhone = contact.phone.replace(/\D/g, "") === contact.whatsapp.replace(/\D/g, "");
+  const details: { icon: IconName; k: string; v: string; href?: string; note?: string }[] = [
+    ...(samePhone ? [] : [{ icon: "phone" as IconName, k: "Teléfono", v: contact.phone, href: isPlaceholder(contact.phone) ? undefined : `tel:+${contact.phone.replace(/\D/g, "")}` }]),
+    { icon: "chat", k: "WhatsApp", v: contact.whatsapp || "[CONTENIDO POR DEFINIR]", href: whatsappUrl || undefined,
+      note: "Solo se atienden mensajes de WhatsApp; no se contestan llamadas." },
     { icon: "pin", k: "Dirección", v: contact.address, href: contact.mapDirectionsUrl || undefined },
     { icon: "clock", k: "Horario de oficina parroquial", v: contact.officeHours },
   ];
@@ -26,7 +30,7 @@ export function Contact() {
           <Eyebrow>Estamos para servirte</Eyebrow>
           <Title>¿Tienes alguna pregunta?</Title>
           <Lead>
-            Llámanos, escríbenos por WhatsApp o visítanos en el templo. Con gusto te
+            Escríbenos por WhatsApp o visítanos en el templo. Con gusto te
             orientamos sobre los sacramentos, los horarios y la vida de la parroquia.
           </Lead>
 
@@ -64,6 +68,9 @@ export function Contact() {
                       <Provisional text={d.v} />
                     )}
                   </dd>
+                  {d.note && (
+                    <dd className="mt-1 text-[0.82rem] leading-snug text-ink-soft">{d.note}</dd>
+                  )}
                 </div>
               </div>
             ))}

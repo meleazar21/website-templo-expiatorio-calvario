@@ -1,4 +1,4 @@
-import { contact, isPlaceholder, navigation, site } from "../data/site";
+import { contact, navigation, site, whatsappUrl } from "../data/site";
 
 export function Footer() {
   const year = new Date().getFullYear();
@@ -22,12 +22,15 @@ export function Footer() {
               {contact.address}
               <br />
               {site.city}
-              {!isPlaceholder(contact.phone) && (
+              {/* WhatsApp instead of tel:, since the office doesn't answer calls. */}
+              {whatsappUrl && (
                 <>
                   <br />
-                  <a href={`tel:+${contact.phone.replace(/\D/g, "")}`} className="transition-colors hover:text-white">
-                    {contact.phone}
+                  <a href={whatsappUrl} target="_blank" rel="noopener noreferrer" className="transition-colors hover:text-white">
+                    WhatsApp: {contact.whatsapp}
                   </a>
+                  <br />
+                  <span className="text-[0.8rem] text-white/50">Solo mensajes, no se contestan llamadas.</span>
                 </>
               )}
             </p>

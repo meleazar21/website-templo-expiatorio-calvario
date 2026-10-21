@@ -13,6 +13,7 @@ function groupLinks(g: Group): { name: string; icon: IconName; url: string; back
     { name: "Facebook", icon: "facebook" as IconName, url: g.facebook, background: brand("Facebook") },
     { name: "Instagram", icon: "instagram" as IconName, url: g.instagram, background: brand("Instagram") },
     { name: "YouTube", icon: "youtube" as IconName, url: g.youtube, background: brand("YouTube") },
+    { name: "TikTok", icon: "tiktok" as IconName, url: g.tiktok, background: brand("TikTok") },
   ].filter((l): l is typeof l & { url: string } => hasLink(l.url));
 }
 

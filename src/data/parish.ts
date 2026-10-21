@@ -72,6 +72,8 @@ export interface Group {
   instagram?: string;
   /** Optional link to the group's YouTube channel or a video. */
   youtube?: string;
+  /** Optional link to the group's TikTok profile. */
+  tiktok?: string;
 }
 /** Alphabetical by name, so a new group from the panel falls into place on its own. */
 export const groups = Object.values(
