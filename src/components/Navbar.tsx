@@ -36,7 +36,7 @@ export function Navbar() {
           {/* The crest is the star: it grows with the screen width and shrinks a bit on
               scroll so the bar doesn't take up half the screen. */}
           <img
-            src="/logo.png"
+            src="/logo.webp"
             alt={site.brand}
             className={`w-auto object-contain transition-all duration-300 ${
               /* On the phone the crest gives up some size: it now shares the bar with

@@ -11,19 +11,19 @@
   "comunidadTitulo": "Acerca de nuestro templo",
   "portadaFotos": [
     {
-      "foto": "/fotos/jesus-nazareno.jpg",
+      "foto": "/fotos/jesus-nazareno.webp",
       "texto": "Templo Expiatorio Arquidiocesano"
     },
     {
-      "foto": "/fotos/senor-de-los-milagros.jpg",
+      "foto": "/fotos/senor-de-los-milagros.webp",
       "texto": "Santa Misa"
     },
     {
-      "foto": "/fotos/crucifixion-calvario.jpg",
+      "foto": "/fotos/crucifixion-calvario.webp",
       "texto": "Nuestra comunidad"
     },
     {
-      "foto": "/fotos/cover.jpg",
+      "foto": "/fotos/cover.webp",
       "texto": "Adoración al Santísimo Sacramento"
     }
   ],

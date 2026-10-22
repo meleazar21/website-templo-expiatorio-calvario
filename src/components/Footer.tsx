@@ -10,7 +10,7 @@ export function Footer() {
           {/* Identity */}
           <div>
             <div className="flex items-center gap-3">
-              <img src="/logo.png" alt="" className="h-14 w-14 object-contain" />
+              <img src="/logo.webp" alt="" className="h-14 w-14 object-contain" />
               <div className="leading-tight">
                 <p className="font-serif text-[1.25rem]">{site.brandLine1}</p>
                 <p className="text-[0.7rem] font-bold uppercase tracking-[0.16em] text-gold-light">
