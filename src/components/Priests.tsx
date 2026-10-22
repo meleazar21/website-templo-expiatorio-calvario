@@ -30,15 +30,16 @@ export function Priests() {
             <button
               type="button"
               onClick={() => setProfile(p)}
-              className="group flex h-full w-full flex-col overflow-hidden rounded-2xl border border-wine/[0.08] bg-white text-left shadow-card transition-all hover:-translate-y-1 hover:shadow-lift sm:flex-row"
+              className="group flex h-full w-full flex-col overflow-hidden rounded-2xl border border-wine/[0.08] bg-white text-left shadow-card transition-all hover:-translate-y-1 hover:shadow-lift"
             >
+              {/* The photos are landscape (the priest at the altar or ambo), so they go
+                  across the top at their own 3:2 rather than squeezed into a side column,
+                  which cut the priest off at the edge. */}
               {p.foto ? (
                 <img src={p.foto} alt={p.nombre} loading="lazy" decoding="async"
-                  /* Square on the phone: a portrait photo at full height filled the screen
-                     before the name appeared, and 4:3 cut the face off at the bottom. */
-                  className="aspect-square w-full object-cover object-[center_55%] sm:aspect-auto sm:w-56 sm:shrink-0" />
+                  className="aspect-[3/2] w-full object-cover object-[center_30%] transition-transform duration-500 group-hover:scale-[1.02]" />
               ) : (
-                <PhotoPlaceholder label={p.nombre} className="aspect-square w-full sm:aspect-auto sm:w-56 sm:shrink-0" />
+                <PhotoPlaceholder label={p.nombre} className="aspect-[3/2] w-full" />
               )}
 
               <div className="flex flex-1 flex-col p-7">
@@ -75,41 +76,40 @@ function PriestProfile({ p, onClose }: { p: Priest; onClose: () => void }) {
       >
         <div
           onClick={(e) => e.stopPropagation()}
-          className="relative flex max-h-[92vh] w-full max-w-3xl animate-reveal flex-col overflow-hidden rounded-t-2xl bg-white shadow-lift sm:max-h-[88vh] sm:flex-row sm:rounded-2xl"
+          className="relative max-h-[92vh] w-full max-w-2xl animate-reveal overflow-hidden rounded-t-2xl bg-white shadow-lift sm:max-h-[88vh] sm:rounded-2xl"
         >
           <button
             type="button" onClick={onClose} aria-label="Cerrar"
-            className="absolute right-3 top-3 z-10 inline-flex h-10 w-10 items-center justify-center rounded-full bg-wine-deep/60 text-white backdrop-blur transition-colors hover:bg-wine-deep sm:bg-white/85 sm:text-wine sm:hover:bg-white"
+            className="absolute right-3 top-3 z-10 inline-flex h-10 w-10 items-center justify-center rounded-full bg-wine-deep/60 text-white backdrop-blur transition-colors hover:bg-wine-deep"
           >
             <Icon name="close" size={20} />
           </button>
 
-          {/* On the phone: an oval avatar above the name, so the bio starts on the first
-              screen. On desktop: the photo whole, in a narrow column beside the text. */}
-          {p.foto ? (
-            <button
-              type="button" onClick={() => setEnlarged(true)} aria-label={`Ver la foto de ${p.nombre} en grande`}
-              className="mx-auto mt-8 shrink-0 cursor-zoom-in rounded-[50%] sm:mx-0 sm:mt-0 sm:w-64 sm:self-start sm:rounded-none md:w-72"
-            >
-              <img
-                src={p.foto} alt={p.nombre}
-                className="h-[15.5rem] w-48 rounded-[50%] object-cover object-[center_8%] shadow-card ring-4 ring-gold/40 sm:h-auto sm:max-h-[80vh] sm:w-full sm:rounded-none sm:object-contain sm:shadow-none sm:ring-0"
-              />
-            </button>
-          ) : (
-            <PhotoPlaceholder label={p.nombre} className="mx-auto mt-8 h-[15.5rem] w-48 shrink-0 rounded-[50%] sm:mx-0 sm:mt-0 sm:h-auto sm:w-64 sm:rounded-none md:w-72" />
-          )}
+          {/* The landscape photo as a banner across the top, then the bio. Both scroll
+              together, so on a short screen the photo moves out of the way of the text. */}
+          <div className="max-h-[92vh] overflow-y-auto sm:max-h-[88vh]">
+            {p.foto ? (
+              <button
+                type="button" onClick={() => setEnlarged(true)} aria-label={`Ver la foto de ${p.nombre} en grande`}
+                className="block w-full cursor-zoom-in"
+              >
+                <img src={p.foto} alt={p.nombre} className="aspect-[16/9] w-full object-cover object-[center_30%]" />
+              </button>
+            ) : (
+              <PhotoPlaceholder label={p.nombre} className="aspect-[16/9] w-full" />
+            )}
 
-          <div className="flex-1 overflow-y-auto p-7 sm:p-9">
-            <p className="text-center text-[0.72rem] font-extrabold uppercase tracking-[0.14em] text-gold sm:text-left">
+          <div className="p-7 sm:p-9">
+            <p className="text-[0.72rem] font-extrabold uppercase tracking-[0.14em] text-gold">
               {p.cargo}
             </p>
-            <h3 className="mt-2 text-center font-serif text-[1.8rem] leading-tight text-wine-deep sm:text-left">{p.nombre}</h3>
+            <h3 className="mt-2 font-serif text-[1.8rem] leading-tight text-wine-deep">{p.nombre}</h3>
             <div className="mt-6 space-y-4 leading-relaxed text-ink-soft">
               {paragraphs(p.biografia).map((t, k) => (
                 <p key={k}>{t}</p>
               ))}
             </div>
+          </div>
           </div>
         </div>
       </div>
