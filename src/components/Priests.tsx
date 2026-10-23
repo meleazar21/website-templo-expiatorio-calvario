@@ -93,7 +93,7 @@ function PriestProfile({ p, onClose }: { p: Priest; onClose: () => void }) {
                 type="button" onClick={() => setEnlarged(true)} aria-label={`Ver la foto de ${p.nombre} en grande`}
                 className="block w-full cursor-zoom-in"
               >
-                <img src={p.foto} alt={p.nombre} className="aspect-[16/9] w-full object-cover object-[center_30%]" />
+                <img src={p.foto} alt={p.nombre} className="aspect-[16/9] w-full object-cover object-[center_15%]" />
               </button>
             ) : (
               <PhotoPlaceholder label={p.nombre} className="aspect-[16/9] w-full" />
