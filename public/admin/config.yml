@@ -104,6 +104,7 @@ collections:
       - { name: orden, label: "Orden en que aparece", widget: number, value_type: int, default: 1 }
       - { name: nombre, label: "Nombre", widget: string, hint: "Ej.: Pbro. Juan Pérez" }
       - { name: cargo, label: "Cargo", widget: string, hint: "Ej.: Párroco, Vicario" }
+      - { name: seccion, label: "Sección", widget: select, default: "sacerdote", options: [{ label: "Nuestro Pastor", value: "pastor" }, { label: "Nuestros Sacerdotes", value: "sacerdote" }], hint: "Nuestro Pastor es para el Arzobispo; los demás van en Nuestros Sacerdotes." }
       - { name: foto, label: "Fotografía", widget: image, required: false, hint: "Vertical, JPG de menos de 300 KB." }
       - { name: biografia, label: "Biografía", widget: text, hint: "Deja una línea en blanco entre párrafos. La tarjeta muestra el primer párrafo; el resto se ve al tocar 'Conocer más'." }
 

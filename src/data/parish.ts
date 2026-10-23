@@ -49,6 +49,9 @@ export interface Priest {
   /** Photo path. Empty = a "photo to be defined" placeholder is drawn. */
   foto?: string;
   biografia: string;
+  /** "pastor" = shown alone under "Nuestro Pastor" (the archbishop); anything else, or
+   *  empty, = under "Nuestros Sacerdotes". */
+  seccion?: "pastor" | "sacerdote";
 }
 export const priests = loadCollection<Priest>(
   import.meta.glob("../../content/sacerdotes/*.json", { eager: true })

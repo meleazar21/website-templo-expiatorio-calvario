@@ -1,64 +1,97 @@
 import { useState } from "react";
 import { priests, type Priest } from "../data/parish";
-import { Eyebrow, Icon, Lead, Lightbox, PhotoPlaceholder, Reveal, Section, Title, useModalLayer } from "./ui";
+import { Eyebrow, Icon, Lead, Lightbox, PhotoPlaceholder, Reveal, Section, useModalLayer } from "./ui";
 
 const paragraphs = (text: string) => text.split(/\n{2,}/).map((p) => p.trim()).filter(Boolean);
 
 /**
- * The parish priest and the vicar. Only two people, so each gets a wide card with the
- * photo beside the start of the bio; the full bio opens in a profile, where long text
- * reads better than stretched inside the card.
+ * Two groups: "Nuestro Pastor" (the archbishop, alone and centered) and, below it,
+ * "Nuestros Sacerdotes" (the parish priest and the vicar, side by side). Each card opens
+ * the full bio in a profile, where long text reads better than stretched inside the card.
  */
 export function Priests() {
   const [profile, setProfile] = useState<Priest | null>(null);
+  const pastors = priests.filter((p) => p.seccion === "pastor");
+  const others = priests.filter((p) => p.seccion !== "pastor");
 
   return (
     <Section id="sacerdotes">
       <Reveal>
         <div className="text-center">
-          <Eyebrow>Nuestros pastores</Eyebrow>
-          <Title center>Sacerdotes</Title>
+          <Eyebrow>Guías espirituales</Eyebrow>
           <Lead center>
-            Los sacerdotes que acompañan y guían espiritualmente a nuestra comunidad.
+            Quienes acompañan y guían espiritualmente a nuestra comunidad.
           </Lead>
         </div>
       </Reveal>
 
-      <div className="mt-14 grid gap-6 lg:grid-cols-2">
-        {priests.map((p, i) => (
-          <Reveal key={p.nombre} delay={i * 110} className="h-full">
-            <button
-              type="button"
-              onClick={() => setProfile(p)}
-              className="group flex h-full w-full flex-col overflow-hidden rounded-2xl border border-wine/[0.08] bg-white text-left shadow-card transition-all hover:-translate-y-1 hover:shadow-lift"
-            >
-              {/* The photos are landscape (the priest at the altar or ambo), so they go
-                  across the top at their own 3:2 rather than squeezed into a side column,
-                  which cut the priest off at the edge. */}
-              {p.foto ? (
-                <img src={p.foto} alt={p.nombre} loading="lazy" decoding="async"
-                  className="aspect-[3/2] w-full object-cover object-[center_30%] transition-transform duration-500 group-hover:scale-[1.02]" />
-              ) : (
-                <PhotoPlaceholder label={p.nombre} className="aspect-[3/2] w-full" />
-              )}
+      {pastors.length > 0 && (
+        <>
+          <GroupHeading>Nuestro Pastor</GroupHeading>
+          <div className="mx-auto mt-8 grid max-w-xl gap-6">
+            {pastors.map((p, i) => <PriestCard key={p.nombre} p={p} delay={i * 110} onOpen={setProfile} />)}
+          </div>
+        </>
+      )}
 
-              <div className="flex flex-1 flex-col p-7">
-                <p className="text-[0.72rem] font-extrabold uppercase tracking-[0.16em] text-gold">{p.cargo}</p>
-                <h3 className="mt-1.5 text-[1.6rem] leading-tight text-wine-deep">{p.nombre}</h3>
-                <p className="mt-4 line-clamp-5 text-[0.94rem] leading-relaxed text-ink-soft">
-                  {paragraphs(p.biografia)[0]}
-                </p>
-                <span className="mt-auto inline-flex items-center gap-1.5 pt-5 text-[0.75rem] font-extrabold uppercase tracking-[0.13em] text-wine transition-colors group-hover:text-gold">
-                  Conocer más <Icon name="arrow" size={15} />
-                </span>
-              </div>
-            </button>
-          </Reveal>
-        ))}
-      </div>
+      {others.length > 0 && (
+        <>
+          <GroupHeading>{pastors.length > 0 ? "Nuestros Sacerdotes" : null}</GroupHeading>
+          <div className="mt-8 grid gap-6 lg:grid-cols-2">
+            {others.map((p, i) => <PriestCard key={p.nombre} p={p} delay={i * 110} onOpen={setProfile} />)}
+          </div>
+        </>
+      )}
 
       {profile && <PriestProfile p={profile} onClose={() => setProfile(null)} />}
     </Section>
+  );
+}
+
+/** Subheading for each group: the title between two short gold rules. */
+function GroupHeading({ children }: { children: string | null }) {
+  if (!children) return <div className="mt-14" />;
+  return (
+    <Reveal>
+      <h3 className="mt-14 flex items-center justify-center gap-4 text-center font-serif text-[1.7rem] leading-tight text-wine-deep sm:text-[1.9rem]">
+        <span className="h-px w-10 bg-gold/60 sm:w-16" aria-hidden="true" />
+        {children}
+        <span className="h-px w-10 bg-gold/60 sm:w-16" aria-hidden="true" />
+      </h3>
+    </Reveal>
+  );
+}
+
+function PriestCard({ p, delay, onOpen }: { p: Priest; delay: number; onOpen: (p: Priest) => void }) {
+  return (
+    <Reveal delay={delay} className="h-full">
+      <button
+        type="button"
+        onClick={() => onOpen(p)}
+        className="group flex h-full w-full flex-col overflow-hidden rounded-2xl border border-wine/[0.08] bg-white text-left shadow-card transition-all hover:-translate-y-1 hover:shadow-lift"
+      >
+        {/* The photos are landscape (the priest at the altar or ambo), so they go
+            across the top at their own 3:2 rather than squeezed into a side column,
+            which cut the priest off at the edge. */}
+        {p.foto ? (
+          <img src={p.foto} alt={p.nombre} loading="lazy" decoding="async"
+            className="aspect-[3/2] w-full object-cover object-[center_30%] transition-transform duration-500 group-hover:scale-[1.02]" />
+        ) : (
+          <PhotoPlaceholder label={p.nombre} className="aspect-[3/2] w-full" />
+        )}
+
+        <div className="flex flex-1 flex-col p-7">
+          <p className="text-[0.72rem] font-extrabold uppercase tracking-[0.16em] text-gold">{p.cargo}</p>
+          <h4 className="mt-1.5 font-serif text-[1.6rem] leading-tight text-wine-deep">{p.nombre}</h4>
+          <p className="mt-4 line-clamp-5 text-[0.94rem] leading-relaxed text-ink-soft">
+            {paragraphs(p.biografia)[0]}
+          </p>
+          <span className="mt-auto inline-flex items-center gap-1.5 pt-5 text-[0.75rem] font-extrabold uppercase tracking-[0.13em] text-wine transition-colors group-hover:text-gold">
+            Conocer más <Icon name="arrow" size={15} />
+          </span>
+        </div>
+      </button>
+    </Reveal>
   );
 }
 
