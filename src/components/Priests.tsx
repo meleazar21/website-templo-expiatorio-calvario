@@ -27,7 +27,7 @@ export function Priests() {
 
       {pastors.length > 0 && (
         <>
-          <GroupHeading>Nuestro Pastor</GroupHeading>
+          <GroupHeading first>Nuestro Pastor</GroupHeading>
           <div className="mx-auto mt-8 grid max-w-4xl gap-6">
             {pastors.map((p, i) => <PriestCard key={p.nombre} p={p} delay={i * 110} onOpen={setProfile} featured />)}
           </div>
@@ -49,11 +49,11 @@ export function Priests() {
 }
 
 /** Subheading for each group: the title between two short gold rules. */
-function GroupHeading({ children }: { children: string | null }) {
+function GroupHeading({ children, first = false }: { children: string | null; first?: boolean }) {
   if (!children) return <div className="mt-14" />;
   return (
     <Reveal>
-      <h3 className="mt-14 flex items-center justify-center gap-4 text-center font-serif text-[1.7rem] leading-tight text-wine-deep sm:text-[1.9rem]">
+      <h3 className={`${first ? "mt-8" : "mt-14"} flex items-center justify-center gap-4 text-center font-serif text-[1.7rem] leading-tight text-wine-deep sm:text-[1.9rem]`}>
         <span className="h-px w-10 bg-gold/60 sm:w-16" aria-hidden="true" />
         {children}
         <span className="h-px w-10 bg-gold/60 sm:w-16" aria-hidden="true" />
