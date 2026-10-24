@@ -4,10 +4,13 @@ import { Analytics } from "@vercel/analytics/react";
 import App from "./App";
 import "./index.css";
 
+/** The admin panel: published on Netlify, where its sign-in (Netlify Identity) lives. */
+const ADMIN_URL = "https://admin-templo-expiatorio-calvario.netlify.app/admin/";
+
 // Netlify Identity's emails (invitation, password reset) link to the site's root with a
-// token in the hash; the sign-in widget lives in /admin, so pass the token on to it.
+// token in the hash; the sign-in widget lives in the panel, so pass the token on to it.
 if (/(invite|recovery|confirmation|email_change)_token=/.test(window.location.hash)) {
-  window.location.replace("/admin/" + window.location.hash);
+  window.location.replace(ADMIN_URL + window.location.hash);
 }
 
 ReactDOM.createRoot(document.getElementById("root")!).render(

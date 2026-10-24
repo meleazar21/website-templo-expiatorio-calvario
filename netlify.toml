@@ -1,31 +1,44 @@
 # Netlify deployment.
 #
-# The admin panel (/admin) is published with the site and uses `git-gateway`, the
-# sign-in Netlify ships built in: the parish edits online without a GitHub account.
+# Netlify hosts ONLY the admin panel: https://admin-templo-expiatorio-calvario.netlify.app/admin/
+# The public site is on Vercel (https://www.templo-expiatorio-calvario.com); every save
+# in the panel is a commit to `master`, and Vercel republishes from it. The panel uses
+# `git-gateway`, the sign-in Netlify ships built in: the parish edits online without a
+# GitHub account.
 #
 # To set it up (once):
-#   1. Netlify → Add new site → Import from Git → this repository (branch `master`).
+#   1. Netlify → Add new site → Import from Git → this repository (branch `master`),
+#      named `admin-templo-expiatorio-calvario` (the address above).
 #   2. Site configuration → Identity → Enable Identity.
 #   3. Identity → Registration → Invite only  (so not just anyone can sign up).
 #   4. Identity → Services → Git Gateway → Enable.
 #   5. Identity → Invite users → the email of whoever will maintain the site. The email
-#      links to the site's root; src/main.tsx passes the token on to /admin/, where they
-#      choose a password.
-#
-# The site also works on Vercel (vercel.json), but there the panel needs a separate
-# GitHub OAuth app; see the commented block in public/admin/config.yml.
+#      links to the site's root; src/main.tsx passes the token on to the panel, where
+#      they choose a password.
 
 [build]
   command = "npm run build"
   publish = "dist"
 
-# The site is a single page: any route returns index.html. Without `force`, files that
-# really exist (/admin/index.html, /admin/config.yml, the photos) are served as-is and
-# don't go through here.
+# The public site is published on Vercel, at the official domain; Netlify only hosts the
+# panel (/admin/), its sign-in and Git Gateway. So any visit to the public pages here is
+# sent to the official domain, and there aren't two copies of the site.
+#
+# "/" needs `force` because index.html exists. The rest goes without it, so files that
+# really exist (/admin/index.html, /admin/config.yml, the photos the panel previews,
+# /assets) are still served as-is. /.netlify/* (Identity, Git Gateway) never reaches here.
+# The #invite_token of the invitation emails survives the redirect: src/main.tsx then
+# sends it on to the panel.
+[[redirects]]
+  from = "/"
+  to = "https://www.templo-expiatorio-calvario.com/"
+  status = 301
+  force = true
+
 [[redirects]]
   from = "/*"
-  to = "/index.html"
-  status = 200
+  to = "https://www.templo-expiatorio-calvario.com/:splat"
+  status = 301
 
 # Security headers. Same values as in vercel.json: keep both in sync.
 #

@@ -26,6 +26,10 @@ backend:
   branch: master
 
 local_backend: true      # only on localhost
+
+# The public site, on Vercel: the panel's "view site" link points here.
+site_url: https://www.templo-expiatorio-calvario.com
+display_url: https://www.templo-expiatorio-calvario.com
 locale: es
 
 # Where photos uploaded from the panel end up.
