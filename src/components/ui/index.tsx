@@ -9,7 +9,7 @@ export type IconName =
   // Sacraments
   | "water" | "chalice" | "rings" | "heart" | "oil" | "cross"
   // Devotions
-  | "sacredHeart" | "candle" | "moon"
+  | "sacredHeart" | "candle" | "moon" | "monstrance"
   // Social networks
   | "facebook" | "instagram" | "youtube" | "tiktok";
 
@@ -73,6 +73,12 @@ const PATHS: Record<IconName, ReactNode> = {
   candle: <>
     <path d="M9 10.5h6v10H9zM12 10.5V8.6" />
     <path d="M12 3.2s2 1.9 2 3.2a2 2 0 0 1-4 0c0-1.3 2-3.2 2-3.2z" />
+  </>,
+  /* The monstrance of perpetual adoration: the Host in its sunburst, on a stem. */
+  monstrance: <>
+    <circle cx="12" cy="8.6" r="2.6" />
+    <path d="M12 2.4v1.8M12 13v1.6M5.8 8.6h1.8M16.4 8.6h1.8M7.6 4.2l1.3 1.3M15.1 11.7l1.3 1.3M16.4 4.2l-1.3 1.3M8.9 11.7l-1.3 1.3" />
+    <path d="M12 14.6v4.2M10.4 16.6h3.2M8.4 21h7.2l-1.6-2.2h-4z" />
   </>,
   /* The night vigil: a crescent moon and a star. */
   moon: <>

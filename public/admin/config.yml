@@ -39,6 +39,8 @@ collections:
         file: "content/horarios.json"
         description: "Lo más consultado del sitio. Mantenlo al día."
         fields:
+          - { name: adoracionTitulo, label: "Adoración perpetua — título", widget: string, required: false, hint: "Aviso destacado arriba de los horarios. Si se deja vacío, no aparece." }
+          - { name: adoracionTexto, label: "Adoración perpetua — texto", widget: text, required: false }
           - name: misas
             label: "Santa Misa"
             label_singular: "Horario"

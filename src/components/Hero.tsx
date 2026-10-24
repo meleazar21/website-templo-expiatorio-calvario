@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
+import { perpetualAdoration } from "../data/parish";
 import { heroSlides, site } from "../data/site";
 import { Icon } from "./ui";
 
@@ -100,7 +101,22 @@ export function Hero() {
             </figcaption>
           </figure>
 
-          <div className="mt-11 flex flex-col gap-3 sm:flex-row sm:items-center">
+          {/* The temple never closes: said up front, and it leads to the notice in Horarios.
+              The dot pulses like the sanctuary lamp. */}
+          {perpetualAdoration.title && (
+            <a
+              href="#adoracion"
+              className="mt-8 inline-flex items-center gap-2.5 rounded-full border border-gold/50 bg-wine-deep/45 px-4 py-2 text-[0.7rem] font-extrabold uppercase tracking-[0.14em] text-gold-light backdrop-blur transition-colors hover:bg-wine-deep/70"
+            >
+              <span className="relative flex h-2.5 w-2.5" aria-hidden="true">
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-gold opacity-75" />
+                <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-gold" />
+              </span>
+              Adoración perpetua · abierto 24/7
+            </a>
+          )}
+
+          <div className="mt-9 flex flex-col gap-3 sm:flex-row sm:items-center">
             <a
               href="#horarios"
               className="inline-flex items-center justify-center gap-2 rounded-full bg-gold px-8 py-4 text-[0.85rem] font-extrabold uppercase tracking-[0.14em] text-wine-deep shadow-lift transition-transform hover:-translate-y-0.5 hover:bg-gold-light"

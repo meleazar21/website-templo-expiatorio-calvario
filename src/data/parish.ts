@@ -39,6 +39,12 @@ export const schedules: { key: string; title: string; icon: IconName; rows: Sche
   { key: "direccion", title: "Dirección espiritual", icon: "book", rows: schedulesRaw.direccionEspiritual ?? [] },
 ];
 
+/** Perpetual adoration: the temple is open day and night. Empty title = no notice. */
+export const perpetualAdoration = {
+  title: (schedulesRaw as { adoracionTitulo?: string }).adoracionTitulo ?? "",
+  text: (schedulesRaw as { adoracionTexto?: string }).adoracionTexto ?? "",
+};
+
 /** Masses at the Capilla Espíritu Santo, which belongs to the temple. */
 export const chapelMasses: ScheduleRow[] = schedulesRaw.capillaEspirituSanto ?? [];
 

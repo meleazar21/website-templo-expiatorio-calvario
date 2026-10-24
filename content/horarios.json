@@ -1,4 +1,6 @@
 {
+  "adoracionTitulo": "Abierto las 24 horas, los 7 días de la semana",
+  "adoracionTexto": "Nuestro templo permanece abierto día y noche para la adoración perpetua a Jesús Sacramentado. Ven a acompañarle cuando quieras.",
   "misas": [
     { "dia": "Lunes a miércoles", "hora": "6:00 pm", "nota": "" },
     { "dia": "Jueves", "hora": "6:45 am y 5:30 pm", "nota": "" },
