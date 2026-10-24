@@ -71,6 +71,10 @@ export interface Seminarian {
   nombre: string;
   /** Photo path. Empty = a "photo to be defined" placeholder is drawn. */
   foto?: string;
+  /** More photos of him; shown as thumbnails under the main one. */
+  fotos?: string[];
+  /** Priesthood (seminarians) or consecrated life (religious sisters, brothers...). */
+  vocacion?: "sacerdocio" | "consagrada";
   /** "actual": doing pastoral work with us now; "anterior": did it in the past. */
   estado: "actual" | "anterior";
   /** Optional line: seminary, stage of formation... */

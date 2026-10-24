@@ -1,0 +1,11 @@
+{
+  "orden": 3,
+  "estado": "actual",
+  "nombre": "Erick Ángel Rodríguez Gutiérrez",
+  "foto": "/fotos/erick-foto.webp",
+  "detalle": "Seminarista del Seminario Menor Nuestra Señora de la Asunción. Originario de nuestro Templo Expiatorio.",
+  "fotos": [
+    "/fotos/erick-ii.webp"
+  ],
+  "vocacion": "sacerdocio"
+}

@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { seminarians } from "../data/parish";
+import { seminarians, type Seminarian } from "../data/parish";
 import { Eyebrow, Icon, Lead, Lightbox, PhotoPlaceholder, Provisional, Reveal, Section, Title } from "./ui";
 
 /** How long each seminarian stays before the next one. */
@@ -9,13 +9,59 @@ const SLIDE_MS = 10000;
 const initials = (name: string) =>
   name.replace(/^\[|\]$/g, "").replace(/^(sem|seminarista)\.?\s+/i, "").split(/\s+/).slice(0, 2).map((w) => w[0] ?? "").join("").toUpperCase();
 
+const VOCATION = {
+  sacerdocio: { label: "Camino al sacerdocio", icon: "chalice" },
+  consagrada: { label: "Vida consagrada", icon: "heart" },
+} as const;
+
 const STATUS = {
   actual: { label: "En pastoral con nosotros", tone: "bg-gold text-wine-deep" },
   anterior: { label: "Hizo pastoral con nosotros", tone: "bg-wine text-white" },
 } as const;
 
 /**
- * "Nuestros seminaristas": the young men who do (or did) their pastoral year with us, so
+ * A seminarian's photos: the main one large and, if there are more, thumbnails under it
+ * that swap into the large frame. Mounted per slide, so it starts on the main photo
+ * every time the carousel moves on.
+ */
+function SeminarianPhotos({ s, onOpen }: { s: Seminarian; onOpen: (src: string) => void }) {
+  const pics = [s.foto, ...(s.fotos ?? [])].filter((x): x is string => Boolean(x));
+  const [shown, setShown] = useState(0);
+  const current = pics[shown];
+
+  return (
+    <div className="relative bg-wine-deep p-4 sm:p-5">
+      <div className="overflow-hidden rounded-2xl ring-1 ring-gold/50">
+        {current ? (
+          <button type="button" onClick={() => onOpen(current)}
+            aria-label={`Ver en grande: ${s.nombre}`} className="block w-full cursor-zoom-in">
+            <img key={current} src={current} alt={s.nombre} decoding="async"
+              className="aspect-[4/5] w-full animate-fade object-cover object-top" />
+          </button>
+        ) : (
+          <PhotoPlaceholder label="Seminarista" className="aspect-[4/5] w-full" />
+        )}
+      </div>
+      {pics.length > 1 && (
+        <div className="mt-3 flex justify-center gap-2">
+          {pics.map((src, i) => (
+            <button key={src} type="button" onClick={() => setShown(i)}
+              aria-label={`Ver foto ${i + 1} de ${s.nombre}`} aria-current={i === shown}
+              className={`overflow-hidden rounded-lg transition-all ${
+                i === shown ? "ring-2 ring-gold" : "opacity-55 hover:opacity-100"
+              }`}>
+              <img src={src} alt="" loading="lazy" className="h-14 w-14 object-cover object-top" />
+            </button>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
+/**
+ * "Nuestras vocaciones": the young people of the parish called to the priesthood
+ * (seminarians) or to consecrated life, who do (or did) their pastoral work with us, so
  * the community prays for their vocation.
  *
  * One at a time, large: each gets his moment instead of being one card in a row. It
@@ -41,16 +87,18 @@ export function Seminarians() {
   if (count === 0) return null;
   const s = seminarians[index];
   const status = STATUS[s.estado] ?? STATUS.actual;
+  const vocation = VOCATION[s.vocacion ?? "sacerdocio"] ?? VOCATION.sacerdocio;
 
   return (
     <Section id="seminaristas" className="bg-gold-soft/60">
       <Reveal>
         <div className="text-center">
-          <Eyebrow>Semillero de vocaciones</Eyebrow>
-          <Title center>Nuestros seminaristas</Title>
+          <Eyebrow>Vocaciones</Eyebrow>
+          <Title center>Nuestras vocaciones</Title>
           <Lead center>
-            Jóvenes que hacen o han hecho su pastoral en nuestro templo, en su camino hacia el
-            sacerdocio. Te invitamos a acompañarlos con tu oración.
+            Jóvenes de nuestro templo que han respondido al llamado de Dios, al sacerdocio o a
+            la vida consagrada, y que hacen o han hecho su pastoral con nosotros. Te invitamos a
+            acompañarlos con tu oración.
           </Lead>
         </div>
       </Reveal>
@@ -70,25 +118,16 @@ export function Seminarians() {
         >
           {/* `key` remounts the slide, so each one fades in. */}
           <div key={index} className="grid animate-fade md:grid-cols-[0.9fr_1.1fr]">
-            <div className="relative bg-wine-deep p-4 sm:p-5">
-              <div className="overflow-hidden rounded-2xl ring-1 ring-gold/50">
-                {s.foto ? (
-                  <button type="button" onClick={() => setOpen({ src: s.foto!, alt: s.nombre })}
-                    aria-label={`Ver en grande: ${s.nombre}`} className="block w-full cursor-zoom-in">
-                    <img src={s.foto} alt={s.nombre} decoding="async"
-                      className="aspect-[4/5] w-full object-cover object-top" />
-                  </button>
-                ) : (
-                  <PhotoPlaceholder label="Seminarista" className="aspect-[4/5] w-full" />
-                )}
-              </div>
-            </div>
+            <SeminarianPhotos s={s} onOpen={(src) => setOpen({ src, alt: s.nombre })} />
 
             <div className="flex flex-col justify-center p-7 sm:p-10">
               <span className={`self-start rounded-full px-3 py-1 text-[0.62rem] font-extrabold uppercase tracking-[0.14em] ${status.tone}`}>
                 {status.label}
               </span>
-              <h3 className="mt-4 text-[2rem] leading-tight text-wine-deep sm:text-[2.5rem]">
+              <p className="mt-5 flex items-center gap-2 text-[0.72rem] font-extrabold uppercase tracking-[0.16em] text-gold">
+                <Icon name={vocation.icon} size={16} /> {vocation.label}
+              </p>
+              <h3 className="mt-1.5 text-[2rem] leading-tight text-wine-deep sm:text-[2.5rem]">
                 <Provisional text={s.nombre} />
               </h3>
               {s.detalle && (

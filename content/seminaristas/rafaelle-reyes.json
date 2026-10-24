@@ -1,0 +1,11 @@
+{
+  "orden": 1,
+  "estado": "actual",
+  "nombre": "Ángel Rafael Reyes Espinoza",
+  "foto": "/fotos/rafael-logo.webp",
+  "detalle": "Seminarista de cuarto año de Teología del Seminario Mayor Interdiocesano Nuestra Señora de Fátima (Diócesis de Estelí).",
+  "fotos": [
+    "/fotos/rafael-ii.webp"
+  ],
+  "vocacion": "sacerdocio"
+}

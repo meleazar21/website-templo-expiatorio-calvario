@@ -80,9 +80,9 @@ collections:
 
   # ------------------------------------------------------------------ Seminarians
   - name: seminaristas
-    label: "Seminaristas"
-    label_singular: "Seminarista"
-    description: "Los que hacen o han hecho su pastoral en nuestro templo. Se muestran en un carrusel para pedir por sus vocaciones."
+    label: "Vocaciones"
+    label_singular: "Vocación"
+    description: "Seminaristas y vida consagrada: quienes hacen o han hecho su pastoral en nuestro templo. Se muestran en un carrusel para pedir por sus vocaciones."
     folder: "content/seminaristas"
     extension: json
     format: json
@@ -93,8 +93,22 @@ collections:
     sortable_fields: [orden, nombre]
     fields:
       - { name: orden, label: "Orden en que aparece", widget: number, value_type: int, default: 1 }
-      - { name: nombre, label: "Nombre", widget: string, hint: "Ej.: Sem. Juan Pérez" }
-      - { name: foto, label: "Fotografía", widget: image, required: false, hint: "Vertical, de preferencia de medio cuerpo." }
+      - { name: nombre, label: "Nombre", widget: string, hint: "Nombre completo. Ej.: Juan Pérez López" }
+      - name: vocacion
+        label: "Vocación"
+        widget: select
+        default: sacerdocio
+        options:
+          - { label: "Sacerdocio (seminarista)", value: sacerdocio }
+          - { label: "Vida consagrada (religiosa o religioso)", value: consagrada }
+      - { name: foto, label: "Fotografía principal", widget: image, required: false, hint: "Vertical, de preferencia de medio cuerpo." }
+      - name: fotos
+        label: "Más fotos (opcional)"
+        label_singular: "Foto"
+        widget: list
+        required: false
+        hint: "Se muestran como miniaturas debajo de la principal; al tocarlas pasan a la foto grande."
+        field: { name: foto, label: "Foto", widget: image }
       - name: estado
         label: "Pastoral en nuestro templo"
         widget: select
