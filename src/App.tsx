@@ -2,6 +2,7 @@ import { Navbar } from "./components/Navbar";
 import { Hero } from "./components/Hero";
 import { Community } from "./components/Community";
 import { Priests } from "./components/Priests";
+import { Seminarians } from "./components/Seminarians";
 import { Schedules } from "./components/Schedules";
 import { Devotions } from "./components/Devotions";
 import { Groups } from "./components/Groups";
@@ -27,6 +28,7 @@ export default function App() {
         <Schedules />
         <Devotions />
         <Priests />
+        <Seminarians />
         <Groups />
         <NazarenoCompany />
         <Sacraments />

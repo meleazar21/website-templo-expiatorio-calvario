@@ -78,6 +78,32 @@ collections:
             summary: "{{fields.dia}} · {{fields.hora}}"
             fields: *scheduleFields
 
+  # ------------------------------------------------------------------ Seminarians
+  - name: seminaristas
+    label: "Seminaristas"
+    label_singular: "Seminarista"
+    description: "Los que hacen o han hecho su pastoral en nuestro templo. Se muestran en un carrusel para pedir por sus vocaciones."
+    folder: "content/seminaristas"
+    extension: json
+    format: json
+    create: true
+    identifier_field: nombre
+    slug: "{{slug}}"
+    summary: "{{orden}} · {{nombre}}"
+    sortable_fields: [orden, nombre]
+    fields:
+      - { name: orden, label: "Orden en que aparece", widget: number, value_type: int, default: 1 }
+      - { name: nombre, label: "Nombre", widget: string, hint: "Ej.: Sem. Juan Pérez" }
+      - { name: foto, label: "Fotografía", widget: image, required: false, hint: "Vertical, de preferencia de medio cuerpo." }
+      - name: estado
+        label: "Pastoral en nuestro templo"
+        widget: select
+        default: actual
+        options:
+          - { label: "Hace pastoral con nosotros actualmente", value: actual }
+          - { label: "Hizo pastoral con nosotros", value: anterior }
+      - { name: detalle, label: "Detalle (opcional)", widget: string, required: false, hint: "Ej.: Seminario Nacional La Purísima · Teología" }
+
   # ------------------------------------------------------------------ Announcements
   - name: avisos
     label: "Avisos parroquiales"

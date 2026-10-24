@@ -65,6 +65,21 @@ export const priests = loadCollection<Priest>(
   import.meta.glob("../../content/sacerdotes/*.json", { eager: true })
 );
 
+// ---------------------------------------------------------------- Seminarians
+export interface Seminarian {
+  orden?: number;
+  nombre: string;
+  /** Photo path. Empty = a "photo to be defined" placeholder is drawn. */
+  foto?: string;
+  /** "actual": doing pastoral work with us now; "anterior": did it in the past. */
+  estado: "actual" | "anterior";
+  /** Optional line: seminary, stage of formation... */
+  detalle?: string;
+}
+export const seminarians = loadCollection<Seminarian>(
+  import.meta.glob("../../content/seminaristas/*.json", { eager: true })
+);
+
 // ---------------------------------------------------------------- Parish groups
 export interface Group {
   nombre: string;
