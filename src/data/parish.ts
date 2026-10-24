@@ -73,8 +73,10 @@ export interface Seminarian {
   foto?: string;
   /** More photos of him; shown as thumbnails under the main one. */
   fotos?: string[];
-  /** Priesthood (seminarians) or consecrated life (religious sisters, brothers...). */
-  vocacion?: "sacerdocio" | "consagrada";
+  /** Priesthood (seminarians), consecrated life, or monastic life (cloistered orders). */
+  vocacion?: "sacerdocio" | "consagrada" | "monastica";
+  /** Replaces the status tag when it doesn't fit, e.g. "En el Monasterio del Carmelo Descalzo". */
+  etiqueta?: string;
   /** "actual": doing pastoral work with us now; "anterior": did it in the past. */
   estado: "actual" | "anterior";
   /** Optional line: seminary, stage of formation... */

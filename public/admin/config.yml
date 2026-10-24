@@ -101,6 +101,7 @@ collections:
         options:
           - { label: "Sacerdocio (seminarista)", value: sacerdocio }
           - { label: "Vida consagrada (religiosa o religioso)", value: consagrada }
+          - { label: "Vida monástica (monasterio, clausura)", value: monastica }
       - { name: foto, label: "Fotografía principal", widget: image, required: false, hint: "Vertical, de preferencia de medio cuerpo." }
       - name: fotos
         label: "Más fotos (opcional)"
@@ -116,6 +117,7 @@ collections:
         options:
           - { label: "Hace pastoral con nosotros actualmente", value: actual }
           - { label: "Hizo pastoral con nosotros", value: anterior }
+      - { name: etiqueta, label: "Texto de la etiqueta (opcional)", widget: string, required: false, hint: "Reemplaza a «En pastoral con nosotros» / «Hizo pastoral con nosotros» cuando no aplica. Ej.: En el Monasterio del Carmelo Descalzo" }
       - { name: detalle, label: "Detalle (opcional)", widget: string, required: false, hint: "Ej.: Seminario Nacional La Purísima · Teología" }
 
   # ------------------------------------------------------------------ Announcements

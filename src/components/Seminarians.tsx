@@ -12,6 +12,7 @@ const initials = (name: string) =>
 const VOCATION = {
   sacerdocio: { label: "Camino al sacerdocio", icon: "chalice" },
   consagrada: { label: "Vida consagrada", icon: "heart" },
+  monastica: { label: "Vida monástica", icon: "candle" },
 } as const;
 
 const STATUS = {
@@ -86,7 +87,10 @@ export function Seminarians() {
 
   if (count === 0) return null;
   const s = seminarians[index];
-  const status = STATUS[s.estado] ?? STATUS.actual;
+  const status = s.etiqueta
+    // A custom tag (e.g. a sister in her monastery) instead of the pastoral status.
+    ? { label: s.etiqueta, tone: "bg-wine-deep text-gold-light" }
+    : STATUS[s.estado] ?? STATUS.actual;
   const vocation = VOCATION[s.vocacion ?? "sacerdocio"] ?? VOCATION.sacerdocio;
 
   return (
