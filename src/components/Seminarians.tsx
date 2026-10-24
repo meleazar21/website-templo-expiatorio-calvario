@@ -94,11 +94,10 @@ export function Seminarians() {
       <Reveal>
         <div className="text-center">
           <Eyebrow>Vocaciones</Eyebrow>
-          <Title center>Nuestras vocaciones</Title>
+          <Title center>Oremos por las vocaciones</Title>
           <Lead center>
-            Jóvenes de nuestro templo que han respondido al llamado de Dios, al sacerdocio o a
-            la vida consagrada, y que hacen o han hecho su pastoral con nosotros. Te invitamos a
-            acompañarlos con tu oración.
+            Jóvenes que han escuchado el llamado del Señor y que nos han acompañado en algún
+            momento de su formación en nuestro Templo Expiatorio.
           </Lead>
         </div>
       </Reveal>
