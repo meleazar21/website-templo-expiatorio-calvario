@@ -1,0 +1,96 @@
+{
+  "intro": "Nuestro templo no solo ofrece el espacio para el sacramento de la Confesión: como Templo Expiatorio, procura también con devoción la oración y la reparación.",
+  "rosario": [
+    {
+      "dia": "Lunes",
+      "hora": "7:00 pm",
+      "nota": ""
+    },
+    {
+      "dia": "Martes",
+      "hora": "7:00 pm",
+      "nota": ""
+    },
+    {
+      "dia": "Miércoles",
+      "hora": "7:00 pm",
+      "nota": ""
+    },
+    {
+      "dia": "Jueves",
+      "hora": "4:00 pm",
+      "nota": "Antes de la Misa del Santísimo"
+    },
+    {
+      "dia": "Viernes",
+      "hora": "5:00 pm",
+      "nota": "Antes de la Misa del Señor de los Milagros"
+    },
+    {
+      "dia": "Sábado",
+      "hora": "6:30 pm",
+      "nota": ""
+    },
+    {
+      "dia": "Domingo",
+      "hora": "8:00 am",
+      "nota": "Antes de la Misa de los niños"
+    }
+  ],
+  "rosarioMotivo": "Rezamos por los pobres pecadores, como pidió la Virgen en su aparición de Fátima y, en nuestra tierra nicaragüense, en Cuapa; especialmente por los más necesitados de la misericordia de su Hijo Jesucristo.",
+  "rosarioIntenciones": [
+    {
+      "texto": "Por los pobres pecadores"
+    },
+    {
+      "texto": "Por los sacerdotes y las vocaciones al sacerdocio"
+    },
+    {
+      "texto": "Por los atribulados en diversas situaciones"
+    }
+  ],
+  "devociones": [
+    {
+      "cuando": "Primer jueves de cada mes",
+      "hora": "7:00 pm",
+      "titulo": "Reparación al Sagrado Corazón de Jesús",
+      "descripcion": "A cargo de la Guardia de Honor, acompañamos a Jesús en sus horas de angustia en el Huerto de los Olivos.",
+      "icono": "sacredHeart"
+    },
+    {
+      "cuando": "Primer viernes de cada mes",
+      "hora": "6:00 pm",
+      "titulo": "Misa y comunión reparadora",
+      "descripcion": "En honor del Sagrado Corazón de Jesús.",
+      "icono": "sacredHeart"
+    },
+    {
+      "cuando": "Primer sábado de cada mes",
+      "hora": "5:30 pm",
+      "titulo": "Reparación al Inmaculado Corazón de María",
+      "descripcion": "Santa Misa y comunión reparadora; al terminar, rezamos juntos el Santo Rosario.",
+      "icono": "heart"
+    },
+    {
+      "cuando": "Último viernes de cada mes",
+      "hora": "7:00 pm",
+      "titulo": "Liturgia penitencial",
+      "descripcion": "Seguida de la meditación del Santo Vía Crucis, como todos los viernes.",
+      "icono": "cross"
+    },
+    {
+      "cuando": "Todos los lunes",
+      "hora": "",
+      "titulo": "Misa por los fieles difuntos",
+      "descripcion": "Ofrecemos la Santa Misa por los fieles difuntos, para ayudarles a expiar sus pecados.",
+      "icono": "candle"
+    },
+    {
+      "cuando": "Fecha por anunciar",
+      "hora": "",
+      "titulo": "Vigilia de adoración nocturna",
+      "descripcion": "Adoración al Santísimo durante la noche, hasta la mañana, a cargo de la Familia del Santísimo. Avisaremos la fecha.",
+      "icono": "moon"
+    }
+  ]
+}

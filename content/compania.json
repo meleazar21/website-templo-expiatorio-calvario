@@ -1,0 +1,20 @@
+{
+  "antetitulo": "Devotos y promesantes",
+  "titulo": "Compañía de Jesús Nazareno",
+  "texto": "Aunque no son un grupo parroquial, son los devotos y promesantes que, año con año, celebran a Jesús Nazareno en nuestro templo.\n\nCon su fe, sus promesas y su entrega, son un gran apoyo para las fiestas de Cuaresma.",
+  "lema": "Año con año, junto a Jesús Nazareno.",
+  "fotos": [
+    {
+      "foto": "/fotos/galeria-rostro-jesus.webp",
+      "texto": "Jesús Nazareno"
+    },
+    {
+      "foto": "/fotos/galeria-promesante.webp",
+      "texto": "Promesante"
+    },
+    {
+      "foto": "/fotos/galeria-beso-jesus.webp",
+      "texto": "Devoción a Jesús Nazareno"
+    }
+  ]
+}

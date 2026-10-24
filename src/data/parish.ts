@@ -10,6 +10,8 @@
  */
 import type { IconName } from "../components/ui";
 import schedulesRaw from "../../content/horarios.json";
+import devotionsRaw from "../../content/devociones.json";
+import companyRaw from "../../content/compania.json";
 
 /** A single string inside a list; the CMS cannot store lists of plain strings. */
 interface Line { texto: string }
@@ -129,3 +131,37 @@ export interface GalleryPhoto {
 export const gallery = loadCollection<GalleryPhoto>(
   import.meta.glob("../../content/galeria/*.json", { eager: true })
 );
+
+// ---------------------------------------------------------------- Devotions
+
+export interface Devotion {
+  /** "Primer jueves de cada mes", "Todos los lunes"... */
+  cuando: string;
+  hora?: string;
+  titulo: string;
+  descripcion: string;
+  icono: IconName;
+}
+
+/** A day of the Rosary: its time and a note ("Antes de la Misa…"). */
+export interface RosaryDay { dia: string; hora: string; nota?: string }
+
+/** The daily Rosary, the intentions it's prayed for, and the acts of reparation. */
+export const devotions = {
+  intro: devotionsRaw.intro ?? "",
+  rosary: (devotionsRaw.rosario ?? []) as RosaryDay[],
+  rosaryReason: devotionsRaw.rosarioMotivo ?? "",
+  rosaryIntentions: toLines(devotionsRaw.rosarioIntenciones),
+  items: (devotionsRaw.devociones ?? []) as Devotion[],
+};
+
+// ---------------------------------------------------------------- Compañía de Jesús Nazareno
+
+/** The devotees and promesantes of Jesús Nazareno: not a group, so not a group card. */
+export const nazarenoCompany = {
+  eyebrow: companyRaw.antetitulo ?? "",
+  title: companyRaw.titulo ?? "",
+  text: companyRaw.texto ?? "",
+  motto: companyRaw.lema ?? "",
+  photos: (companyRaw.fotos ?? []).filter((f) => f.foto) as { foto: string; texto?: string }[],
+};

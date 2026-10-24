@@ -8,6 +8,8 @@ export type IconName =
   | "mail" | "chat" | "check" | "arrow" | "menu" | "close" | "chevron" | "image" | "globe"
   // Sacraments
   | "water" | "chalice" | "rings" | "heart" | "oil" | "cross"
+  // Devotions
+  | "sacredHeart" | "candle" | "moon"
   // Social networks
   | "facebook" | "instagram" | "youtube" | "tiktok";
 
@@ -60,6 +62,23 @@ const PATHS: Record<IconName, ReactNode> = {
     <path d="M8.2 11.6h7.6M12 14.2v3.4M10.3 15.9h3.4" />
   </>,
   cross: <path d="M12 2.8v18.4M6.6 8.2h10.8" />,
+
+  /* Devotions. The Sacred Heart: the heart crowned by the cross, with the band of
+     thorns across it. */
+  sacredHeart: <>
+    <path d="M12 21.2s-7-4.3-7-9a3.9 3.9 0 0 1 7-2.4 3.9 3.9 0 0 1 7 2.4c0 4.7-7 9-7 9z" />
+    <path d="M12 2.6v5M10.1 4.6h3.8M7.6 13.4c2.9 1.1 5.9 1.1 8.8 0" />
+  </>,
+  /* A votive candle, for the faithful departed. */
+  candle: <>
+    <path d="M9 10.5h6v10H9zM12 10.5V8.6" />
+    <path d="M12 3.2s2 1.9 2 3.2a2 2 0 0 1-4 0c0-1.3 2-3.2 2-3.2z" />
+  </>,
+  /* The night vigil: a crescent moon and a star. */
+  moon: <>
+    <path d="M19.4 14.6A7.9 7.9 0 1 1 9.4 4.6a6.4 6.4 0 0 0 10 10z" />
+    <path d="M17.2 3.6v3M15.7 5.1h3" />
+  </>,
 
   /* Brands: drawn with their recognizable shape, not an initial. */
   facebook: <path d="M13.9 21.4v-8.2h2.8l.5-3.3h-3.3V7.8c0-.9.3-1.6 1.7-1.6h1.7V3.2c-.8-.1-1.7-.2-2.6-.2-2.6 0-4.4 1.6-4.4 4.5v2.4H7.1v3.3h3.2v8.2z" fill="currentColor" stroke="none" />,

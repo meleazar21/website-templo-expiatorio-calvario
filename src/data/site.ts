@@ -127,6 +127,7 @@ export const navigation = [
   { id: "nosotros", label: "Nosotros" },
   { id: "sacerdotes", label: "Sacerdotes" },
   { id: "horarios", label: "Horarios" },
+  { id: "devociones", label: "Devociones" },
   { id: "grupos", label: "Grupos" },
   { id: "sacramentos", label: "Sacramentos" },
   { id: "avisos", label: "Avisos" },

@@ -18,6 +18,55 @@ function groupLinks(g: Group): { name: string; icon: IconName; url: string; back
 }
 
 /**
+ * One meeting line from the panel, "Día · Horario (Tipo)", split into its parts so the
+ * card can lay them out. Any part may be missing: "Solemnidades · (Servicio)" has no
+ * time, and a line without "·" is all day.
+ */
+function parseMeeting(line: string): { day: string; time: string; kind: string } {
+  const kindMatch = line.match(/\(([^)]+)\)\s*$/);
+  const kind = kindMatch ? kindMatch[1].trim() : "";
+  const rest = kindMatch ? line.slice(0, kindMatch.index).trim() : line;
+  const dot = rest.indexOf("·");
+  return dot < 0
+    ? { day: rest, time: "", kind }
+    : { day: rest.slice(0, dot).trim(), time: rest.slice(dot + 1).trim(), kind };
+}
+
+/**
+ * The group's meetings, one row each: the day on top with its kind as a tag, and the
+ * time below. With up to seven lines per group, a block of plain text was hard to scan.
+ * "Servicio" is gold (when they serve at Mass); meetings and formation are wine.
+ */
+function GroupMeetings({ text }: { text: string }) {
+  const rows = text.split("\n").map((l) => l.trim()).filter(Boolean).map(parseMeeting);
+
+  return (
+    <ul className="mt-2.5 space-y-2">
+      {rows.map((m, k) => (
+        <li key={k} className="rounded-xl border-l-2 border-gold bg-ivory-deep/70 px-3.5 py-2.5">
+          <div className="flex items-start justify-between gap-3">
+            <p className="font-bold leading-snug text-wine-deep"><Provisional text={m.day} /></p>
+            {m.kind && (
+              <span className={`max-w-[55%] rounded-xl px-2.5 py-0.5 text-right text-[0.62rem] font-extrabold uppercase leading-snug tracking-[0.1em] ${
+                /servicio/i.test(m.kind) ? "bg-gold-soft text-[#8a6d22]" : "bg-wine-soft text-wine"
+              }`}>
+                {m.kind}
+              </span>
+            )}
+          </div>
+          {m.time && (
+            <p className="mt-1 flex items-start gap-1.5 text-[0.85rem] font-medium tabular-nums text-ink-soft">
+              {/\d/.test(m.time) && <Icon name="clock" size={14} className="mt-[3px] shrink-0 text-gold" />}
+              <span><Provisional text={m.time} /></span>
+            </p>
+          )}
+        </li>
+      ))}
+    </ul>
+  );
+}
+
+/**
  * The card's header: the logo, then the group's photos, changed by hand with the arrows
  * or dots (several cards rotating at once would pull the eye all over). The logo is
  * shown whole on ivory; photos fill the frame. A group with photos but no logo gets the
@@ -167,12 +216,8 @@ export function Groups() {
                               <dt className="text-[0.7rem] font-extrabold uppercase tracking-[0.12em] text-ink-faint">
                                 {f.k}
                               </dt>
-                              {/* One line per meeting: each line typed in the panel is a row. */}
-                              <dd className="mt-1.5 space-y-1 font-semibold text-wine">
-                                {f.v.split("\n").map((l) => l.trim()).filter(Boolean).map((l, k) => (
-                                  <p key={k}><Provisional text={l} /></p>
-                                ))}
-                              </dd>
+                              {/* One row per meeting: each line typed in the panel is a row. */}
+                              <dd><GroupMeetings text={f.v} /></dd>
                             </div>
                           ))}
                         </dl>

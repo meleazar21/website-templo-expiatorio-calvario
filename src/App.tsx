@@ -3,7 +3,9 @@ import { Hero } from "./components/Hero";
 import { Community } from "./components/Community";
 import { Priests } from "./components/Priests";
 import { Schedules } from "./components/Schedules";
+import { Devotions } from "./components/Devotions";
 import { Groups } from "./components/Groups";
+import { NazarenoCompany } from "./components/NazarenoCompany";
 import { Sacraments } from "./components/Sacraments";
 import { Announcements } from "./components/Announcements";
 import { Gallery } from "./components/Gallery";
@@ -23,8 +25,10 @@ export default function App() {
         <Hero />
         <Community />
         <Schedules />
+        <Devotions />
         <Priests />
         <Groups />
+        <NazarenoCompany />
         <Sacraments />
         <Announcements />
         <Gallery />
