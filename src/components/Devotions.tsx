@@ -202,8 +202,9 @@ export function Devotions() {
         </Reveal>
       )}
 
+      {/* A card left alone on the last row of three sits in the middle column. */}
       {items.length > 0 && (
-        <div className="mt-6 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-6 grid gap-6 md:grid-cols-2 lg:grid-cols-3 lg:[&>*:last-child:nth-child(3n+1)]:col-start-2">
           {items.map((d, i) => (
             <Reveal key={d.titulo} delay={(i % 3) * 90} className="h-full">
               <article className="group relative flex h-full flex-col overflow-hidden rounded-2xl border border-gold/25 bg-white p-7 shadow-card transition-all hover:-translate-y-1 hover:shadow-lift">

@@ -76,6 +76,13 @@
       "hora": "7:00 pm",
       "titulo": "Liturgia penitencial",
       "descripcion": "Seguida de la meditación del Santo Vía Crucis, como todos los viernes.",
+      "icono": "heart"
+    },
+    {
+      "cuando": "Todos los viernes",
+      "hora": "7:00 pm",
+      "titulo": "Santo Vía Crucis",
+      "descripcion": "Meditamos el Santo Vía Crucis, acompañando a Jesús en su camino hacia el Calvario.",
       "icono": "cross"
     },
     {

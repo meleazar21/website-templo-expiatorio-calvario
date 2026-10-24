@@ -1,9 +1,6 @@
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { seminarians, type Seminarian } from "../data/parish";
 import { Eyebrow, Icon, Lead, Lightbox, PhotoPlaceholder, Provisional, Reveal, Section, Title } from "./ui";
-
-/** How long each seminarian stays before the next one. */
-const SLIDE_MS = 10000;
 
 /** "Sem. Juan Pérez" → "JP": for the small avatar of someone without a photo. */
 const initials = (name: string) =>
@@ -65,9 +62,9 @@ function SeminarianPhotos({ s, onOpen }: { s: Seminarian; onOpen: (src: string) 
  * (seminarians) or to consecrated life, who do (or did) their pastoral work with us, so
  * the community prays for their vocation.
  *
- * One at a time, large: each gets his moment instead of being one card in a row. It
- * moves on by itself every SLIDE_MS (any arrow, swipe or avatar restarts the count), and
- * the row of round avatars below lets you jump to anyone, which matters once former
+ * One at a time, large: each gets their moment instead of being one card in a row. It
+ * only moves when the visitor asks (arrows, swipe), so nobody is taken away from someone
+ * they're praying for; the row of round avatars below lets you jump to anyone, which matters once former
  * seminarians add up.
  */
 export function Seminarians() {
@@ -77,13 +74,6 @@ export function Seminarians() {
   const count = seminarians.length;
   const go = (i: number) => setIndex((i + count) % count);
 
-  useEffect(() => {
-    if (count < 2 || open) return;
-    const t = window.setTimeout(() => {
-      if (document.visibilityState === "visible") go(index + 1);
-    }, SLIDE_MS);
-    return () => window.clearTimeout(t);
-  }, [index, count, open]);
 
   if (count === 0) return null;
   const s = seminarians[index];
