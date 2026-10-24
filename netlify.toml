@@ -1,15 +1,16 @@
 # Netlify deployment.
 #
-# Included because the admin panel (/admin) comes configured with `git-gateway`, the
-# login that Netlify ships built in: publishing here, the panel works with nothing
-# else to set up.
+# The admin panel (/admin) is published with the site and uses `git-gateway`, the
+# sign-in Netlify ships built in: the parish edits online without a GitHub account.
 #
-# To use it:
-#   1. Netlify → Add new site → Import from Git → this repository.
+# To set it up (once):
+#   1. Netlify → Add new site → Import from Git → this repository (branch `master`).
 #   2. Site configuration → Identity → Enable Identity.
 #   3. Identity → Registration → Invite only  (so not just anyone can sign up).
 #   4. Identity → Services → Git Gateway → Enable.
-#   5. Identity → Invite users → the email of whoever will maintain the site.
+#   5. Identity → Invite users → the email of whoever will maintain the site. The email
+#      links to the site's root; src/main.tsx passes the token on to /admin/, where they
+#      choose a password.
 #
 # The site also works on Vercel (vercel.json), but there the panel needs a separate
 # GitHub OAuth app; see the commented block in public/admin/config.yml.
@@ -37,9 +38,22 @@
 [[headers]]
   for = "/*"
   [headers.values]
-    Content-Security-Policy = "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; media-src 'self'; frame-src https://www.google.com https://maps.google.com; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; upgrade-insecure-requests"
     X-Frame-Options = "DENY"
     X-Content-Type-Options = "nosniff"
     Referrer-Policy = "strict-origin-when-cross-origin"
     Permissions-Policy = "camera=(), microphone=(), geolocation=(), payment=(), usb=()"
     Strict-Transport-Security = "max-age=63072000; includeSubDomains"
+
+# The CSP goes on the public page only ("/", served from index.html), not on /admin:
+# the panel loads Decap from unpkg and the Netlify Identity widget from
+# identity.netlify.com, which this strict policy would block. The panel is behind a
+# sign-in and marked noindex. The other headers above still cover every path.
+[[headers]]
+  for = "/"
+  [headers.values]
+    Content-Security-Policy = "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; media-src 'self'; frame-src https://www.google.com https://maps.google.com; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; upgrade-insecure-requests"
+
+[[headers]]
+  for = "/index.html"
+  [headers.values]
+    Content-Security-Policy = "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; media-src 'self'; frame-src https://www.google.com https://maps.google.com; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; upgrade-insecure-requests"

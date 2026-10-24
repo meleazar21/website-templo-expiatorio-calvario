@@ -17,6 +17,9 @@
       It loads from a CDN on purpose: that way the panel stays out of the site's
       `build` and adds no weight for someone who only comes to read the page.
     -->
+    <!-- Netlify Identity: the sign-in box, invitations and password resets. Before Decap,
+         which looks for it to use the `git-gateway` backend. -->
+    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
     <script src="https://unpkg.com/decap-cms@^3.3.3/dist/decap-cms.js"></script>
 
     <!-- Netlify Identity email invite: opening the link asks for the password. -->

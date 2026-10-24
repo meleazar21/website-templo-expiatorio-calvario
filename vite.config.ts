@@ -1,5 +1,3 @@
-import fs from "node:fs";
-import path from "node:path";
 import { defineConfig, type Plugin } from "vite";
 import react from "@vitejs/plugin-react";
 
@@ -26,29 +24,6 @@ function serveAdminPage(): Plugin {
   };
 }
 
-/**
- * The panel is used ONLY on this computer (`npm run admin`), so it isn't published: on
- * the deployed site it would show a login that can't work, because there's no identity
- * service behind it.
- *
- * It's deleted at the end of the build instead of moving the folder out of `public/`,
- * so that in development it keeps being served on its own and there aren't two
- * different paths to maintain.
- *
- * Publish it someday? Remove this plugin from the list and give it a real `backend` in
- * public/admin/config.yml (today it only works for local mode).
- */
-function excludeAdminFromBuild(): Plugin {
-  return {
-    name: "exclude-admin-from-build",
-    apply: "build",
-    closeBundle() {
-      fs.rmSync(path.resolve("dist/admin"), { recursive: true, force: true });
-      console.log("  /admin panel not published (local use only)");
-    },
-  };
-}
-
 export default defineConfig({
-  plugins: [react(), serveAdminPage(), excludeAdminFromBuild()],
+  plugins: [react(), serveAdminPage()],
 });

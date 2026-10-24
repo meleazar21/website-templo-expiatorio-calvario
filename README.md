@@ -12,18 +12,25 @@ escudo del templo: rojo vino, blanco y dorado.
 
 ## Cómo editar el contenido
 
-El sitio trae un **panel de administración** que se usa **en esta computadora**, no en
-línea: se edita en local, se revisa y se publica con un `git push`.
+El sitio trae un **panel de administración** (Decap CMS) que se usa de dos formas:
 
-Dos terminales, ambas en la carpeta del proyecto:
+**En línea (la parroquia).** En **https://&lt;dirección-del-sitio&gt;/admin/** se entra con
+correo y contraseña. Las cuentas se crean por invitación desde Netlify (Identity →
+Invite users): llega un correo, se elige la contraseña y listo. No hace falta cuenta de
+GitHub. Cada vez que se guarda, el cambio se publica solo en uno o dos minutos. Los
+pasos para activarlo están en `netlify.toml`.
+
+**En esta computadora (el desarrollador).** Dos terminales, ambas en la carpeta del
+proyecto:
 
 ```bash
 npm run admin     # terminal 1 — el backend del panel (déjalo corriendo)
 npm run dev       # terminal 2 — el sitio
 ```
 
-Y se abre **http://localhost:5173/admin/**. No pide usuario ni contraseña. Lo que se
-guarda escribe directo en `content/`.
+Y se abre **http://localhost:5173/admin/**. No pide usuario ni contraseña: lo que se
+guarda escribe directo en `content/` y se publica con un `git push`. **Antes, haz
+`git pull`**: la parroquia puede haber guardado cambios en línea.
 
 | Sección del panel         | Qué cambia en la página                                         |
 | ------------------------- | --------------------------------------------------------------- |
