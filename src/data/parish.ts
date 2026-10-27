@@ -141,6 +141,8 @@ export interface Announcement {
   titulo: string;
   categoria: Category;
   descripcion: string;
+  /** Optional poster or photo, shown whole above the text. */
+  imagen?: string;
   /** Featured announcements get a gold border. */
   destacado?: boolean;
 }

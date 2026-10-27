@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { devotions, type RosaryDay } from "../data/parish";
+import { devotions, perpetualAdoration, type RosaryDay } from "../data/parish";
 import { Eyebrow, Icon, Lead, Provisional, Reveal, Section, Title } from "./ui";
 
 /** "Miércoles" → "miercoles": to compare day names without accents or case. */
@@ -94,9 +94,32 @@ export function Devotions() {
         </div>
       </Reveal>
 
+      {/* Perpetual adoration: the first thing an expiatory temple offers is Jesus exposed
+          day and night. Same text as the notice in Horarios (edited in the panel there). */}
+      {perpetualAdoration.title && (
+        <Reveal delay={60}>
+          <div className="relative mt-14 overflow-hidden rounded-3xl border border-gold/40 bg-white p-7 shadow-card sm:p-8 md:flex md:items-center md:gap-8">
+            <div className="absolute inset-x-10 top-0 h-px bg-gradient-to-r from-transparent via-gold to-transparent" />
+            <span className="mx-auto flex h-16 w-16 shrink-0 items-center justify-center rounded-full bg-wine-deep text-gold-light shadow-[0_0_30px_rgba(200,160,74,0.35)] md:mx-0">
+              <Icon name="monstrance" size={34} />
+            </span>
+            <div className="mt-5 text-center md:mt-0 md:flex-1 md:text-left">
+              <p className="text-[0.7rem] font-extrabold uppercase tracking-[0.2em] text-gold">Adoración perpetua al Santísimo</p>
+              <h3 className="mt-1.5 text-[1.5rem] leading-tight text-wine-deep sm:text-[1.8rem]">
+                <Provisional text={perpetualAdoration.title} />
+              </h3>
+              {perpetualAdoration.text && (
+                <p className="mt-2 leading-relaxed text-ink-soft"><Provisional text={perpetualAdoration.text} /></p>
+              )}
+            </div>
+            <p className="mt-4 text-center font-serif text-[3rem] leading-none text-gold md:mt-0 md:shrink-0" aria-hidden="true">24/7</p>
+          </div>
+        </Reveal>
+      )}
+
       {rosary.length > 0 && (
         <Reveal delay={90}>
-          <article className="relative mt-14 overflow-hidden rounded-[2rem] bg-wine-deep bg-[radial-gradient(90%_70%_at_50%_0%,#6b1a2e_0%,transparent_70%)] px-6 py-10 text-white shadow-lift sm:px-10 sm:py-12">
+          <article className={`relative ${perpetualAdoration.title ? "mt-6" : "mt-14"} overflow-hidden rounded-[2rem] bg-wine-deep bg-[radial-gradient(90%_70%_at_50%_0%,#6b1a2e_0%,transparent_70%)] px-6 py-10 text-white shadow-lift sm:px-10 sm:py-12`}>
             <div className="absolute inset-x-12 top-0 h-px bg-gradient-to-r from-transparent via-gold to-transparent" />
 
             <div className="text-center">

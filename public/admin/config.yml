@@ -138,6 +138,7 @@ collections:
       - { name: categoria, label: "Categoría", widget: select, options: [AVISOS, LITURGIA, SACRAMENTOS, ACTIVIDADES, FESTIVIDADES] }
       - { name: fecha, label: "Fecha", widget: string }
       - { name: descripcion, label: "Descripción", widget: text, hint: "Los saltos de línea se respetan en la página." }
+      - { name: imagen, label: "Imagen (opcional)", widget: image, required: false, hint: "Afiche o foto del aviso. Se ve completa, sin recortar; al tocarla se abre en grande." }
       - { name: destacado, label: "Destacar", widget: boolean, default: false, hint: "Lo resalta con borde dorado." }
 
   # ------------------------------------------------------------------ Priests
