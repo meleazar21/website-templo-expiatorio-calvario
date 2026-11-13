@@ -64,7 +64,8 @@ export function Navbar() {
           {navigation.map((n) => (
             <li key={n.id}>
               <a
-                href={`#${n.id}`}
+                href={n.href ?? `#${n.id}`}
+                {...(n.href ? { target: "_blank", rel: "noopener noreferrer" } : {})}
                 className={`rounded-lg px-2.5 py-2 text-[0.78rem] font-bold uppercase tracking-[0.06em] transition-colors ${
                   solid ? "text-ink-soft hover:bg-wine-soft hover:text-wine" : "text-white/85 hover:bg-white/10 hover:text-white"
                 }`}
@@ -99,7 +100,8 @@ export function Navbar() {
             {navigation.map((n) => (
               <li key={n.id}>
                 <a
-                  href={`#${n.id}`}
+                  href={n.href ?? `#${n.id}`}
+                  {...(n.href ? { target: "_blank", rel: "noopener noreferrer" } : {})}
                   onClick={() => setOpen(false)}
                   className="block border-b border-wine/5 py-3.5 text-[0.95rem] font-bold uppercase tracking-[0.1em] text-wine"
                 >

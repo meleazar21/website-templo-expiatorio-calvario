@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#421629">
+<meta name="color-scheme" content="dark">
+<title>Radio La Voz del Calvario — Escucha en vivo</title>
+<link rel="icon" type="image/png" href="../icons/icon-192.png">
+<style>
+:root{color-scheme:dark;font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:#fff3ec}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;background:transparent;width:100%;overflow:hidden}
+main{padding:4px 4px 6px}
+.player{padding:16px 17px 14px;border:1px solid #704252;border-radius:18px;background:linear-gradient(132deg,#4b1e31 0%,#381627 52%,#2e1024 100%);box-shadow:0 14px 30px rgba(20,4,15,.2)}
+.head{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;min-height:33px}
+.kicker{display:block;margin-bottom:5px;color:#e7c4bf;font-size:7px;font-weight:800;letter-spacing:.18em}
+.station{display:block;font-size:12px;font-weight:750;line-height:1.25;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pill{border:1px solid #697f69;border-radius:6px;padding:5px 7px;font-size:7px;letter-spacing:.07em;color:#baf0ce;font-weight:900;white-space:nowrap}
+.pill b{font-size:7px;color:#5fd69d}
+.playrow{display:flex;align-items:center;gap:13px;margin:14px 0 16px}
+button{font:inherit;cursor:pointer}
+.play{height:51px;width:51px;display:grid;place-items:center;flex-shrink:0;border:0;border-radius:50%;background:linear-gradient(132deg,#ffe1a0,#d8a83a);color:#34182a;box-shadow:0 7px 15px rgba(224,172,83,.17)}
+.play:hover,.mute:hover{filter:brightness(1.07)}.play:active{transform:scale(.96)}
+.play svg{width:23px;height:23px;fill:currentColor}
+.status{flex:1;display:flex;flex-direction:column;gap:5px;min-width:0}
+.status strong{font-size:10px;line-height:1.35}
+.status span{font-size:9px;color:#d3b7be;line-height:1.25}
+.mute{width:29px;height:29px;display:grid;place-items:center;border:1px solid rgba(253,232,217,.24);border-radius:50%;background:rgba(255,255,255,.035);color:#edcbd4;flex-shrink:0}
+.mute svg{height:16px;width:16px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linejoin:round;stroke-linecap:round}
+.mute[aria-pressed="true"]{color:#f0c776;border-color:#aa7b50}
+.volrow{display:flex;align-items:center;gap:12px;padding-top:12px;border-top:1px solid rgba(255,235,218,.15)}
+.volrow label{font-size:7px;font-weight:800;letter-spacing:.13em;color:#d8bdc4}
+.volrow input{min-width:0;flex:1;height:5px;accent-color:#ecc17d;cursor:pointer}
+.volrow output{font-size:9px;min-width:27px;color:#f7dce0;text-align:right;font-variant-numeric:tabular-nums}
+.install{display:flex;align-items:center;justify-content:center;gap:11px;min-height:56px;padding:9px 16px;margin-top:11px;border-radius:15px;text-decoration:none;background:linear-gradient(115deg,#ffe8ac,#f3ca72 62%,#dbaa49);color:#44172a;font-weight:800;font-size:13px;box-shadow:0 8px 22px rgba(34,6,22,.2);border:1px solid #efcf8d}
+.install:hover{filter:brightness(1.04)}.install:focus-visible,button:focus-visible,input:focus-visible{outline:3px solid #fbe9b9;outline-offset:3px}
+.install img{width:33px;height:33px;border-radius:9px;object-fit:cover;flex-shrink:0;background:#411426}
+.install span{flex:0 1 auto}
+.install svg{width:18px;height:18px;flex-shrink:0;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+@media(max-width:370px){main{padding:3px}.player{padding:13px 12px}.station{font-size:11px}.pill{font-size:6px;padding:4px}.playrow{gap:10px}.install{font-size:12px;padding:8px 9px}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+<script src="../config.js" defer></script>
+<script src="./player.js" defer></script>
+</head>
+<body>
+<main>
+  <section class="player" aria-label="Reproductor de Radio La Voz del Calvario">
+    <div class="head">
+      <div><span class="kicker">TU RADIO, SIEMPRE CONTIGO</span><strong class="station">Radio La Voz del Calvario</strong></div>
+      <span class="pill">EN DIRECTO <b aria-hidden="true">●</b></span>
+    </div>
+    <div class="playrow">
+      <button type="button" class="play" id="play" aria-label="Reproducir la radio" aria-pressed="false">
+        <svg viewBox="0 0 32 32" aria-hidden="true" id="playSvg"><path d="M11 6 L26 16 L11 26 Z"/></svg>
+      </button>
+      <div class="status" aria-live="polite">
+        <strong id="state">Listo para escuchar</strong>
+        <span id="description">Pulsa reproducir para escuchar en vivo</span>
+      </div>
+      <button type="button" class="mute" id="mute" aria-label="Silenciar" aria-pressed="false" title="Silenciar">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m11 5-5 4H3v6h3l5 4V5z"/><path d="M15 9a5 5 0 0 1 0 6m3-9a9 9 0 0 1 0 12"/></svg>
+      </button>
+    </div>
+    <div class="volrow">
+      <label for="volume">VOLUMEN</label>
+      <input id="volume" type="range" min="0" max="100" value="85" step="1" aria-label="Volumen de la radio">
+      <output id="volumeValue" for="volume">85%</output>
+    </div>
+  </section>
+  <a class="install" href="../install.html" target="_blank" rel="noopener noreferrer" aria-label="Abrir el instalador de Radio La Voz del Calvario">
+    <img src="https://www.templo-expiatorio-calvario.com/logo.webp" onerror="this.onerror=null;this.src='../icons/logo-iglesia-fallback.png'" alt="Escudo del Templo Expiatorio El Calvario">
+    <span>Instalar la radio en mi celular</span>
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m-4-4 4 4 4-4M4 17v3h16v-3"/></svg>
+  </a>
+</main>
+<audio id="audio" preload="none" playsinline></audio>
+</body>
+</html>

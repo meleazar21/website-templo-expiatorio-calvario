@@ -3,6 +3,9 @@ import { perpetualAdoration } from "../data/parish";
 import { heroSlides, site } from "../data/site";
 import { Icon } from "./ui";
 
+/** The website's look for the radio player; see public/radio-theme/player.css. */
+const RADIO_THEME = "/radio-theme/player.css";
+
 /** How long each slide stays before moving on. */
 const SLIDE_MS = 5000;
 
@@ -19,6 +22,7 @@ const SLIDE_MS = 5000;
  */
 export function Hero() {
   const [index, setIndex] = useState(0);
+  const [radioReady, setRadioReady] = useState(false);
   const [hidden, setHidden] = useState(() => document.visibilityState === "hidden");
   const count = heroSlides.length;
 
@@ -80,7 +84,7 @@ export function Hero() {
       </div>
 
       {/* Content */}
-      <div className="relative mx-auto w-full max-w-content px-5 pb-20 pt-32 sm:px-8 md:pb-24 md:pt-36">
+      <div className="relative mx-auto w-full max-w-content px-5 pb-20 pt-32 sm:px-8 md:pb-24 md:pt-36 xl:grid xl:grid-cols-[minmax(0,1fr)_440px] xl:items-center xl:gap-x-12">
         <div className="max-w-3xl animate-reveal">
           <h1 className="text-[2.4rem] leading-[1.08] text-white sm:text-[3.5rem] lg:text-[4.1rem]">
             <span className="block font-sans text-[0.72rem] font-extrabold uppercase leading-normal tracking-[0.3em] text-gold-light">
@@ -132,11 +136,47 @@ export function Hero() {
           </div>
         </div>
 
+        {/* Radio La Voz del Calvario. The player is the radio team's own page, published
+            as-is under public/radio/ and shown in a same-origin iframe; its security
+            headers are in vercel.json (/radio/*). The audio streams from Zeno.FM straight
+            to the listener and only starts when they press play. Beside the text on wide
+            screens; under the welcome text on phones and tablets. */}
+        <div className="mx-auto mt-12 w-full max-w-[440px] animate-reveal xl:mx-0 xl:mt-0">
+          <iframe
+            title="Radio La Voz del Calvario: reproducción en directo"
+            src="/radio/embed/player.html"
+            loading="lazy"
+            allow="autoplay"
+            referrerPolicy="strict-origin-when-cross-origin"
+            // The player declares `color-scheme: dark`; when it differs from the page's,
+            // the browser paints an opaque (black) backdrop behind the frame instead of
+            // leaving it transparent. Matching it here keeps the hero showing through.
+            //
+            // The player is restyled with the site's colors and typefaces by adding our
+            // stylesheet to it (same origin, so the page can reach its document); it stays
+            // hidden until the theme is in, so it never flashes in its original colors.
+            onLoad={(e) => {
+              const doc = e.currentTarget.contentDocument;
+              if (!doc?.head) { setRadioReady(true); return; }
+              if (doc.querySelector(`link[href="${RADIO_THEME}"]`)) return;
+              const link = doc.createElement("link");
+              link.rel = "stylesheet";
+              link.href = RADIO_THEME;
+              // Shown either way: if the theme fails, the radio's own design is fine.
+              link.onload = link.onerror = () => setRadioReady(true);
+              doc.head.appendChild(link);
+            }}
+            className={`block h-[265px] w-full rounded-2xl border-0 bg-transparent transition-opacity duration-300 [color-scheme:dark] ${
+              radioReady ? "opacity-100" : "opacity-0"
+            }`}
+          />
+        </div>
+
         {/* Carousel controls. In the flow under the buttons, not pinned to the bottom:
             on a phone the text is taller than the screen and pinned controls landed
             on top of the buttons. */}
         {count > 1 && (
-          <div className="mt-12 flex items-center gap-4 md:mt-16">
+          <div className="mt-12 flex items-center gap-4 md:mt-16 xl:col-span-2">
             <button
               type="button" onClick={() => go(index - 1)} aria-label="Foto anterior"
               className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/30 text-white transition-colors hover:bg-white/15"

@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#4b102b">
+  <meta name="description" content="Radio La Voz del Calvario: radio cristiana en vivo, música y mensajes de esperanza.">
+  <meta name="color-scheme" content="dark">
+  <meta name="application-name" content="Radio La Voz del Calvario">
+  <link rel="manifest" href="./manifest.webmanifest">
+  <link rel="icon" type="image/png" href="./icons/icon-192.png">
+  <link rel="apple-touch-icon" href="./icons/icon-192.png">
+  <link rel="preconnect" href="https://api.zeno.fm" crossorigin>
+  <link rel="preconnect" href="https://stream.zeno.fm" crossorigin>
+  <link rel="stylesheet" href="./assets/style.css">
+  <title>Radio La Voz del Calvario | Radio en vivo</title>
+  <script src="./config.js" defer></script>
+  <script src="./assets/app.js" defer></script>
+</head>
+<body>
+  <div class="ambient ambient-one" aria-hidden="true"></div>
+  <div class="ambient ambient-two" aria-hidden="true"></div>
+  <div class="app-shell">
+    <header class="topbar">
+      <a class="brand" href="https://www.templo-expiatorio-calvario.com/" aria-label="Visitar la página web de la Parroquia El Calvario">
+        <img src="./icons/icon-192.png" alt="" class="brand-mark" id="headerIcon">
+        <span class="brand-text"><strong id="headerName">Radio La Voz del Calvario</strong><small>RADIO • EN LÍNEA</small></span>
+      </a>
+      <div class="header-actions">
+        <button class="icon-button" type="button" id="shareButton" aria-label="Compartir la emisora" title="Compartir">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 16V3m0 0L7 8m5-5 5 5M5 14v5a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-5"/></svg>
+        </button>
+      </div>
+    </header>
+
+    <main class="main-grid">
+      <section class="hero-panel" aria-label="Reproductor de radio">
+        <div class="eyebrow"><span class="live-dot" id="liveDot"></span><span id="streamBadge">RADIO EN VIVO</span><span class="eyebrow-line"></span><span>MASAYA, NICARAGUA</span></div>
+        <h1>Vive la fe,<br><em>donde quiera que estés</em></h1>
+        <p class="intro" id="stationSubtitle">Templo Expiatorio Arquidiocesano · Parroquia El Calvario, Masaya.</p>
+
+        <div class="radio-art" id="radioArt" aria-hidden="true">
+          <div class="art-glow"></div>
+          <div class="orbit orbit-a"></div><div class="orbit orbit-b"></div>
+          <div class="art-disc">
+            <img id="mainStationLogo" src="./icons/icon-512.png" alt="">
+          </div>
+          <div class="eq-bars">
+            <i style="--h:15px;--d:.1s"></i><i style="--h:28px;--d:.3s"></i><i style="--h:42px;--d:.15s"></i><i style="--h:22px;--d:.25s"></i><i style="--h:35px;--d:.02s"></i><i style="--h:18px;--d:.2s"></i><i style="--h:45px;--d:.12s"></i><i style="--h:24px;--d:.3s"></i><i style="--h:33px;--d:.05s"></i><i style="--h:17px;--d:.4s"></i><i style="--h:38px;--d:.1s"></i><i style="--h:27px;--d:.26s"></i><i style="--h:43px;--d:.08s"></i><i style="--h:19px;--d:.35s"></i><i style="--h:32px;--d:.14s"></i>
+          </div>
+        </div>
+
+        <div class="player-panel">
+          <div class="player-header"><div><span class="mini-label">TU RADIO, SIEMPRE CONTIGO</span><strong id="playerStationName">Radio La Voz del Calvario</strong></div><span class="quality-pill">EN DIRECTO <span aria-hidden="true">●</span></span></div>
+          <div class="play-row">
+            <button type="button" id="playButton" class="play-button" aria-label="Reproducir radio" aria-pressed="false">
+              <svg id="playIcon" viewBox="0 0 32 32" aria-hidden="true"><path d="m12 7 14 9-14 9V7Z" fill="currentColor" stroke="none"/></svg>
+            </button>
+            <div class="play-status"><strong id="playStatus" role="status" aria-live="polite">Listo para escuchar</strong><small id="playDescription">Toca el botón para escuchar en vivo</small></div>
+            <button class="small-round" id="muteButton" type="button" aria-label="Silenciar" title="Silenciar">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11 5 6 9H3v6h3l5 4V5ZM15 9a5 5 0 0 1 0 6m3-9a9 9 0 0 1 0 12"/></svg>
+            </button>
+          </div>
+          <div class="volume-row"><span>VOLUMEN</span><input type="range" min="0" max="100" step="1" value="85" id="volumeSlider" aria-label="Volumen de reproducción"><output id="volumeValue">85%</output></div>
+        </div>
+      </section>
+
+      <div class="right-column">
+        <section class="now-panel" aria-labelledby="nowTitle">
+          <div class="section-head"><span class="section-kicker">EN ESTE MOMENTO</span><span class="sync-tag" id="metadataStatus"><span class="sync-icon"></span> TIEMPO REAL</span></div>
+          <h2 id="nowTitle">Sonando ahora</h2>
+          <div class="track-card">
+            <div class="track-cover" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M9 18V5l12-2v13M9 18c0 2-2 3-4 3s-4-1-4-3 2-3 4-3 4 1 4 3Zm12-2c0 2-2 3-4 3s-4-1-4-3 2-3 4-3 4 1 4 3Z"/></svg>
+            </div>
+            <div class="track-details"><span class="track-label">PISTA ACTUAL · ZENO.FM</span><h3 id="trackTitle" aria-live="polite">Esperando señal...</h3><p id="trackArtist">Los metadatos aparecerán aquí</p></div>
+          </div>
+          <div class="metadata-note" id="metadataNote" role="status" aria-live="polite">Consultando los datos enviados por la emisora a Zeno.FM.</div>
+          <div class="history-heading"><span>Reproducido recientemente</span><span class="history-count" id="historyCount">0 pistas</span></div>
+          <ol class="history-list" id="historyList"><li class="history-empty">Las canciones se registrarán mientras tengas abierta la aplicación.</li></ol>
+        </section>
+
+        <section class="connect-panel" aria-labelledby="connectTitle">
+          <div class="section-head"><span class="section-kicker">MANTENGAMOS EL CONTACTO</span></div>
+          <h2 id="connectTitle">Más cerca de ti</h2>
+          <p>Encuentra las celebraciones, noticias y vida de nuestra comunidad parroquial.</p>
+          <div class="social-links">
+            <a class="social-link is-disabled" id="whatsappLink" aria-disabled="true" tabindex="-1"><span class="social-symbol wa-symbol"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 11.7a8.9 8.9 0 0 1-13.1 7.9L3 21l1.4-4.7A8.9 8.9 0 1 1 21 11.7Z"/><path d="M8 8.5c.6 3.1 2.6 5.1 5.8 6.6.5.2 1.5-.8 1.8-1.5l-2-1.1-1.1 1.2c-1.3-.6-2.2-1.4-2.8-2.6l1-1.1-1.1-1.9L8 8.5Z"/></svg></span><span><strong>WhatsApp</strong><small>Escríbenos un mensaje</small></span><span class="social-arrow">↗</span></a>
+            <a class="social-link is-disabled" id="facebookLink" aria-disabled="true" tabindex="-1"><span class="social-symbol fb-symbol"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 21V12h3l.5-4H14V6c0-1.2.4-2 2-2h2V.5A24 24 0 0 0 15.5 0C12.3 0 10 2 10 5.7V8H7v4h3v9h4Z"/></svg></span><span><strong>Facebook</strong><small>Sigue nuestra comunidad</small></span><span class="social-arrow">↗</span></a>
+
+            <a class="social-link is-disabled" id="instagramLink" aria-disabled="true" tabindex="-1"><span class="social-symbol ig-symbol"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".9" fill="currentColor" stroke="none"/></svg></span><span><strong>Instagram</strong><small>Fotos y vida de la parroquia</small></span><span class="social-arrow">↗</span></a>
+            <a class="social-link is-disabled" id="tiktokLink" aria-disabled="true" tabindex="-1"><span class="social-symbol tk-symbol"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 3v11.2a4.7 4.7 0 1 1-4.7-4.7h.8v3a2 2 0 1 0 1 1.7V3h2.9c.2 2.8 2.3 4.6 5.1 4.8v2.9c-2-.1-3.7-.7-5.1-2z"/></svg></span><span><strong>TikTok</strong><small>Videos y mensajes</small></span><span class="social-arrow">↗</span></a>
+            <a class="social-link is-disabled" id="websiteLink" aria-disabled="true" tabindex="-1"><span class="social-symbol web-symbol"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3.7 4.9 3.7 13.1 0 18M12 3c-3.7 4.9-3.7 13.1 0 18"/></svg></span><span><strong>Página web</strong><small>Conoce nuestra Iglesia</small></span><span class="social-arrow">↗</span></a>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <footer class="footer"><span>© <span id="year"></span> <span id="footerName">Radio La Voz del Calvario</span></span><span>TEMPLO EXPIATORIO · MASAYA</span><button type="button" id="installButton" class="install-link">Instalar aplicación <span aria-hidden="true">↗</span></button></footer>
+  </div>
+
+  <audio id="radioAudio" preload="none" playsinline></audio>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+</body>
+</html>

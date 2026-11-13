@@ -48,7 +48,8 @@ export function Footer() {
               {navigation.map((n) => (
                 <li key={n.id}>
                   <a
-                    href={`#${n.id}`}
+                    href={n.href ?? `#${n.id}`}
+                    {...(n.href ? { target: "_blank", rel: "noopener noreferrer" } : {})}
                     className="text-[0.92rem] text-white/70 transition-colors hover:text-white"
                   >
                     {n.label}
