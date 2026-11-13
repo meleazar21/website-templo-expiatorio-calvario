@@ -123,7 +123,8 @@ export const community = {
  * Navigation bar sections (the id must exist on the page). The ids are the URL
  * anchors visitors see, so they stay in Spanish.
  */
-export const navigation = [
+/** Sections of the page, plus pages outside it (`href`), which open in a new tab. */
+export const navigation: { id: string; label: string; href?: string }[] = [
   { id: "nosotros", label: "Nosotros" },
   { id: "sacerdotes", label: "Sacerdotes" },
   { id: "horarios", label: "Horarios" },
@@ -133,4 +134,6 @@ export const navigation = [
   { id: "avisos", label: "Avisos" },
   { id: "galeria", label: "Galería" },
   { id: "contacto", label: "Contacto" },
+  // The full radio app (a PWA published as-is under public/radio/).
+  { id: "radio", label: "Radio", href: "/radio/" },
 ];

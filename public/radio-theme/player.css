@@ -1,0 +1,156 @@
+/*
+ * The website's look for the radio player (/radio/embed/player.html).
+ *
+ * The player belongs to the radio team and is published untouched under /radio/. The
+ * hero adds this stylesheet to it when the iframe loads (same origin), so it wears the
+ * site's wine and gold and its typefaces without editing their files. It only restyles:
+ * if a future version of the player renames a class, that part simply falls back to the
+ * radio's own design.
+ *
+ * Colors are the site's (tailwind.config.js): wine #7a1f35 / dark #5e1628 /
+ * deep #3e0d1a, gold #c8a04a / light #e2c68a.
+ */
+@import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600&display=swap");
+
+@font-face {
+  font-family: "Manrope";
+  font-style: normal;
+  font-weight: 200 800;
+  font-display: swap;
+  src: url("/fonts/manrope-variable.woff2") format("woff2");
+}
+
+:root {
+  font-family: Manrope, system-ui, -apple-system, "Segoe UI", sans-serif;
+  color: #fff;
+}
+
+/* The card: the site's wine, with a gold hairline like its notices. */
+.player {
+  position: relative;
+  border: 1px solid rgba(200, 160, 74, 0.4);
+  border-radius: 16px;
+  background: linear-gradient(150deg, #5e1628 0%, #3e0d1a 100%);
+  box-shadow: 0 10px 34px rgba(62, 13, 26, 0.35);
+}
+.player::before {
+  content: "";
+  position: absolute;
+  inset: 0 40px auto;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #e2c68a, transparent);
+}
+
+.kicker {
+  margin-bottom: 4px;
+  color: #e2c68a;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 0.2em;
+}
+.station {
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: 19px;
+  font-weight: 600;
+  line-height: 1.15;
+}
+
+/* "En directo": like the hero's adoration badge. */
+.pill {
+  border: 1px solid rgba(226, 198, 138, 0.5);
+  border-radius: 999px;
+  padding: 5px 10px;
+  background: rgba(62, 13, 26, 0.45);
+  color: #e2c68a;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+}
+.pill b {
+  font-size: 9px;
+  color: #c8a04a;
+}
+
+/* Play: the site's gold button. */
+.play {
+  background: #c8a04a;
+  color: #3e0d1a;
+  box-shadow: 0 10px 34px rgba(62, 13, 26, 0.35);
+  transition: background-color 0.2s, transform 0.2s;
+}
+.play:hover {
+  filter: none;
+  background: #e2c68a;
+}
+
+.status strong {
+  font-size: 14px;
+  font-weight: 700;
+}
+.status span {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.mute {
+  border-color: rgba(255, 255, 255, 0.3);
+  background: transparent;
+  color: rgba(255, 255, 255, 0.85);
+}
+.mute:hover {
+  filter: none;
+  background: rgba(255, 255, 255, 0.1);
+}
+.mute[aria-pressed="true"] {
+  color: #e2c68a;
+  border-color: rgba(226, 198, 138, 0.6);
+}
+
+.volrow {
+  border-top-color: rgba(255, 255, 255, 0.12);
+}
+.volrow label {
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 9px;
+  letter-spacing: 0.16em;
+}
+.volrow input {
+  accent-color: #c8a04a;
+}
+.volrow output {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+/* Install: the site's gold button, rounded like its calls to action. */
+.install {
+  border: 0;
+  border-radius: 999px;
+  background: #c8a04a;
+  color: #3e0d1a;
+  font-size: 14px;
+  font-weight: 800;
+  box-shadow: 0 10px 34px rgba(62, 13, 26, 0.35);
+  transition: background-color 0.2s;
+}
+.install:hover {
+  filter: none;
+  background: #e2c68a;
+}
+.install img {
+  border-radius: 50%;
+  background: #3e0d1a;
+}
+
+.install:focus-visible,
+button:focus-visible,
+input:focus-visible {
+  outline-color: #e2c68a;
+}
+
+@media (max-width: 370px) {
+  .station { font-size: 17px; }
+  .pill { font-size: 8px; padding: 4px 7px; }
+  .status strong { font-size: 13px; }
+  .install { font-size: 13px; }
+}
